@@ -79,10 +79,9 @@ model Authenticator {
 }
 
 model WordList {
-  id       String @id @default(cuid())
-  category String // La catégorie des mots (ex: "Animaux")
-  words    Word[] // Une liste de mots associés à cette catégorie
-
+  id        String   @id @default(cuid())
+  category  String   @unique // Ajoutez cette ligne
+  words     Word[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

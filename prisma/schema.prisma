@@ -77,3 +77,26 @@ model Authenticator {
 
   @@id([userId, credentialID])
 }
+
+model WordList {
+  id       String @id @default(cuid())
+  category String // La catégorie des mots (ex: "Animaux")
+  words    Word[] // Une liste de mots associés à cette catégorie
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Word {
+  id          String  @id @default(cuid())
+  word        String // Le mot en langue étrangère (ex: "고양이")
+  translation String // La traduction du mot (ex: "Chat")
+  hint        String? // Un indice pour aider à deviner le mot (ex: "Animal domestique qui aime dormir")
+  score       Int // Le score associé au mot (ex: 10)
+  wordListId  String // Référence à la catégorie de mots
+
+  wordList WordList @relation(fields: [wordListId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

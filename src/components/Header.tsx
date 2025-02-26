@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import HeaderUserButton from "./HeaderUserButton";
 
 export default function Header() {
   return (
@@ -18,16 +18,7 @@ export default function Header() {
             />
             <span className="text-lg font-semibold">Mocou</span>
           </Link>
-
-          {/* Boutons de connexion et d'inscription */}
-          <div className="flex gap-2">
-            <Button asChild variant="outline" size="sm">
-              <Link href={"/sign-in"}>Log In</Link>
-            </Button>
-            <Button asChild size="sm">
-              <Link href={"/sign-up"}>Sign Up</Link>
-            </Button>
-          </div>
+          <HeaderUserButton />
         </nav>
       </div>
     </section>

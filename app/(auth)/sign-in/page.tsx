@@ -1,27 +1,53 @@
 // app/sign-in/page.tsx
 "use client"; // Ce composant utilise des hooks, donc il doit être un Client Component
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import Link from "next/link";
+
+// Schéma de validation Zod
+const signInSchema = z.object({
+  email: z.string().email("Veuillez entrer un email valide."),
+  password: z
+    .string()
+    .min(6, "Le mot de passe doit contenir au moins 6 caractères."),
+});
 
 export default function SignInPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Initialisation de useForm avec Zod
+  const form = useForm({
+    resolver: zodResolver(signInSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
+  const onSubmit = async (values: z.infer<typeof signInSchema>) => {
     const result = await signIn("credentials", {
       redirect: false,
-      email,
-      password,
+      email: values.email,
+      password: values.password,
     });
 
     if (result?.error) {
-      setError(result.error);
+      form.setError("root", { message: result.error });
     } else {
       router.push("/"); // Redirigez l'utilisateur vers la page d'accueil après la connexion
     }
@@ -31,52 +57,60 @@ export default function SignInPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-md w-96">
         <h1 className="text-2xl font-bold mb-6 text-center">Connexion</h1>
-        {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              required
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            {/* Champ Email */}
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Votre email" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          <div className="mb-6">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Mot de passe
-            </label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-              required
+
+            {/* Champ Mot de passe */}
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Mot de passe</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="password"
+                      placeholder="Votre mot de passe"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
-          </div>
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          >
-            Se connecter
-          </button>
-        </form>
+
+            {/* Message d'erreur global */}
+            {form.formState.errors.root && (
+              <p className="text-red-500 text-sm">
+                {form.formState.errors.root.message}
+              </p>
+            )}
+
+            {/* Bouton de soumission */}
+            <Button type="submit" className="w-full">
+              Se connecter
+            </Button>
+          </form>
+        </Form>
         <p className="mt-4 text-center text-sm text-gray-600">
           Pas encore de compte ?{" "}
-          <a href="/sign-up" className="text-blue-500 hover:underline">
+          <Link href="/sign-up" className="text-blue-500 hover:underline">
             S&apos;inscrire
-          </a>
+          </Link>
         </p>
       </div>
     </div>

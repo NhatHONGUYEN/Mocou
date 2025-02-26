@@ -1,21 +1,22 @@
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 export default function NoUserHero() {
   return (
-    <section className="dark bg-background bg-[url(/images/block/noise.png)] py-12 font-sans md:py-20">
+    <section className=" py-32">
       <div className="container">
         <div className="grid grid-cols-1 items-center justify-center gap-12 lg:grid-cols-[minmax(33.75rem,_1fr)_1.5fr] lg:gap-8">
           <div>
             <div className="flex flex-col gap-3">
               <h1 className="text-4xl leading-tight text-foreground md:text-5xl lg:text-[3.5rem]">
-                Anticipate greater value from your billing
+                Trouvez les mots cachés
               </h1>
               <p className="mb-5 text-lg text-foreground">
-                Our service is a usage-based billing platform designed to
-                accelerate your product launches. Effortlessly shape your
-                pricing today and refine it with confidence tomorrow.
+                Ce jeu est conçu pour tester votre capacité à trouver des mots
+                cachés. Amusez-vous à découvrir tous les mots et améliorez vos
+                compétences linguistiques.
               </p>
               <div>
                 <div className="flex flex-col items-center gap-4 lg:flex-row">
@@ -24,7 +25,7 @@ export default function NoUserHero() {
                       asChild
                       className="block h-fit w-fit rounded-full px-6 py-3.5 font-mono text-[0.8125rem] font-medium uppercase leading-4 tracking-widest"
                     >
-                      <a href="#">Get a Demo</a>
+                      <Link href="/game">Play</Link>
                     </Button>
                   </div>
                   <Button
@@ -32,12 +33,12 @@ export default function NoUserHero() {
                     asChild
                     className="group flex h-fit items-center gap-2"
                   >
-                    <a href="#">
+                    <Link href="#">
                       <p className="font-mono text-sm font-medium uppercase text-foreground">
-                        GUIDE TO EMBRACING USAGE-BASED PRICING
+                        Voir les scores
                       </p>
                       <ChevronRight className="h-4 w-4 shrink-0 stroke-foreground transition-transform group-hover:translate-x-2" />
-                    </a>
+                    </Link>
                   </Button>
                 </div>
               </div>

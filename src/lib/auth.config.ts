@@ -12,10 +12,12 @@ export default {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(
+        credentials: Partial<Record<"email" | "password", unknown>>
+      ) {
         // 1. Vérifiez si l'utilisateur existe dans la base de données
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email },
+          where: { email: credentials.email as string },
         });
 
         if (!user) {
@@ -23,6 +25,10 @@ export default {
         }
 
         // 2. Vérifiez si le mot de passe est correct
+        if (!user.password) {
+          throw new Error("Aucun mot de passe défini pour cet utilisateur.");
+        }
+
         const isValidPassword = await bcrypt.compare(
           credentials.password as string,
           user.password

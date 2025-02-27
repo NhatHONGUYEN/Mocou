@@ -159,7 +159,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
 
       {/* MODAL */}
       <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
-        <AlertDialogContent className="p-6">
+        <AlertDialogContent className="p-6 bg-bg">
           <AlertDialogTitle>Félicitations 🎉</AlertDialogTitle>
           <AlertDialogDescription>
             Vous avez terminé la liste avec un score de{" "}

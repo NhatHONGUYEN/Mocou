@@ -2,6 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from "@/components/ui/table";
 
 interface ScoreWithUser {
   id: string;
@@ -9,17 +18,11 @@ interface ScoreWithUser {
   score: number;
   category: string;
   createdAt: string;
-  user: {
-    id: string;
-    name: string | null;
-    email: string;
-    image: string | null;
-  };
 }
 
 export default function HistoryPage() {
   const { data: session } = useSession();
-  const userId = session?.user?.id; // Récupère ton userId depuis la session
+  const userId = session?.user?.id;
   const [scores, setScores] = useState<ScoreWithUser[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -51,28 +54,38 @@ export default function HistoryPage() {
   return (
     <div className="p-6">
       <h1 className="text-xl font-bold mb-4">Mon historique de scores</h1>
-      <table className="w-full border-collapse">
-        <thead>
-          <tr className="bg-gray-200">
-            <th className="p-2 border">#</th>
-            <th className="p-2 border">Score</th>
-            <th className="p-2 border">Catégorie</th>
-            <th className="p-2 border">Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {scores.map((score, index) => (
-            <tr key={score.id} className="hover:bg-gray-100">
-              <td className="p-2 border text-center">{index + 1}</td>
-              <td className="p-2 border text-center">{score.score}</td>
-              <td className="p-2 border text-center">{score.category}</td>
-              <td className="p-2 border text-center">
-                {new Date(score.createdAt).toLocaleDateString()}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Card>
+        <CardHeader>Historique</CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>#</TableHead>
+                <TableHead>Score</TableHead>
+                <TableHead>Catégorie</TableHead>
+                <TableHead>Date</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {scores.map((score, index) => (
+                <TableRow
+                  key={score.id}
+                  className="hover:bg-blank hover:text-bg"
+                >
+                  <TableCell className="text-center">{index + 1}</TableCell>
+                  <TableCell className="text-center">{score.score}</TableCell>
+                  <TableCell className="text-center">
+                    {score.category}
+                  </TableCell>
+                  <TableCell className="text-center">
+                    {new Date(score.createdAt).toLocaleDateString()}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
     </div>
   );
 }

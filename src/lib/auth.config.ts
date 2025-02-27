@@ -43,6 +43,22 @@ export default {
       },
     }),
   ],
+
+  callbacks: {
+    async session({ session, token }) {
+      if (session.user && token.sub) {
+        session.user.id = token.sub; // Toujours utiliser `token.sub`
+      }
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user?.id) {
+        token.sub = String(user.id); // S'assurer que `token.sub` est bien défini
+      }
+      return token;
+    },
+  },
+
   session: { strategy: "jwt" }, // Utilisez JWT pour la session
   secret: process.env.AUTH_SECRET, // Clé secrète pour signer les tokens
 } satisfies NextAuthConfig;

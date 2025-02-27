@@ -3,6 +3,7 @@
 import { notFound, useRouter } from "next/navigation";
 import { useWordList } from "@/hooks/useWordList";
 import { useState, useRef, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -19,7 +20,10 @@ export default function GameCategoryPage({ category }: { category: string }) {
   const [score, setScore] = useState(0);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
-  const [showDialog, setShowDialog] = useState(false); // État pour la modal
+  const [showDialog, setShowDialog] = useState(false);
+  const { data: session } = useSession();
+
+  const userId = session?.user?.id;
 
   useEffect(() => {
     if (inputRef.current) {
@@ -57,7 +61,12 @@ export default function GameCategoryPage({ category }: { category: string }) {
       setUserInput("");
     } else {
       setIsFinished(true);
-      setShowDialog(true); // 🔥 Activer la modal
+      setShowDialog(true);
+
+      // Enregistrer le score si l'utilisateur est connecté
+      if (userId) {
+        saveScore(score, category);
+      }
     }
   };
 
@@ -66,7 +75,32 @@ export default function GameCategoryPage({ category }: { category: string }) {
     setUserInput("");
     setIsFinished(false);
     setScore(0);
-    setShowDialog(false); // Fermer la modal après le restart
+    setShowDialog(false);
+  };
+
+  const saveScore = async (score: number, category: string) => {
+    try {
+      const response = await fetch("/api/scores", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId,
+          score,
+          category,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de l'enregistrement du score");
+      }
+
+      const data = await response.json();
+      console.log("Score enregistré :", data);
+    } catch (error) {
+      console.error("Erreur :", error);
+    }
   };
 
   const handleShowHint = () => {
@@ -128,10 +162,32 @@ export default function GameCategoryPage({ category }: { category: string }) {
             !
           </AlertDialogDescription>
           <div className="flex justify-end gap-4 mt-4">
-            <Button variant="outline" onClick={() => router.push("/scores")}>
-              Voir les scores
-            </Button>
-            <Button onClick={restartGame}>Recommencer</Button>
+            {/* Si l'utilisateur n'est pas connecté */}
+            {!userId && (
+              <Button variant="outline" onClick={() => router.push("/")}>
+                Retour à l&apos;accueil
+              </Button>
+            )}
+
+            {/* Si l'utilisateur est connecté */}
+            {userId && (
+              <>
+                <Button
+                  variant="outline"
+                  onClick={() => router.push("/scores")}
+                >
+                  Voir les scores
+                </Button>
+                <Button
+                  onClick={() => {
+                    saveScore(score, category);
+                    restartGame();
+                  }}
+                >
+                  Recommencer
+                </Button>
+              </>
+            )}
           </div>
         </AlertDialogContent>
       </AlertDialog>

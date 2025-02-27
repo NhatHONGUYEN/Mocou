@@ -9,21 +9,20 @@ generator client {
 }
 
 model User {
-  id            String          @id @default(cuid())
-  name          String?
-  email         String          @unique
-  emailVerified DateTime?
-  image         String?
-  password      String? // Mot de passe haché
-  score         Int             @default(0) // Ajoutez ce champ pour le score de l'utilisateur
-  accounts      Account[]
-  sessions      Session[]
-  Authenticator Authenticator[]
+  id             String          @id @default(cuid())
+  name           String?
+  email          String          @unique
+  emailVerified  DateTime?
+  image          String?
+  password       String? // Mot de passe haché
+  score          Int             @default(0) // Score global de l'utilisateur
+  accounts       Account[]
+  sessions       Session[]
+  authenticators Authenticator[]
+  scores         Score[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  Score Score[]
 }
 
 model Account {
@@ -45,6 +44,7 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@id([provider, providerAccountId])
+  @@index([userId]) // Index pour optimiser les requêtes
 }
 
 model Session {
@@ -55,6 +55,8 @@ model Session {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([userId]) // Index pour optimiser les requêtes
 }
 
 model VerificationToken {
@@ -65,7 +67,6 @@ model VerificationToken {
   @@id([identifier, token])
 }
 
-// Optional for WebAuthn support
 model Authenticator {
   credentialID         String  @unique
   userId               String
@@ -83,7 +84,7 @@ model Authenticator {
 
 model WordList {
   id        String   @id @default(cuid())
-  category  String   @unique // Ajoutez cette ligne
+  category  String   @unique // Catégorie unique
   words     Word[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -94,13 +95,14 @@ model Word {
   word        String // Le mot en langue étrangère (ex: "고양이")
   translation String // La traduction du mot (ex: "Chat")
   hint        String? // Un indice pour aider à deviner le mot (ex: "Animal domestique qui aime dormir")
-  score       Int // Le score associé au mot (ex: 10)
   wordListId  String // Référence à la catégorie de mots
 
   wordList WordList @relation(fields: [wordListId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([wordListId]) // Index pour optimiser les requêtes
 }
 
 model Score {
@@ -110,4 +112,6 @@ model Score {
   score     Int
   category  String
   createdAt DateTime @default(now())
+
+  @@index([userId]) // Index pour optimiser les requêtes
 }

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function NoUserHero() {
   return (
-    <section className=" py-32">
+    <section className=" pt-52 pb-32">
       <div className="container">
         <div className="grid grid-cols-1 items-center justify-center gap-12 lg:grid-cols-[minmax(33.75rem,_1fr)_1.5fr] lg:gap-8">
           <div>
@@ -35,7 +35,7 @@ export default function NoUserHero() {
                   >
                     <Link href="#">
                       <p className="font-mono text-sm font-medium uppercase text-foreground">
-                        Voir les scores
+                        Wants More?
                       </p>
                       <ChevronRight className="h-4 w-4 shrink-0 stroke-foreground transition-transform group-hover:translate-x-2" />
                     </Link>
@@ -48,7 +48,7 @@ export default function NoUserHero() {
             <Image
               src="/1348441.png"
               alt=""
-              className="max-h-96 w-full border-2 border-white rounded-md object-cover"
+              className="w-full border-8 border-white rounded-md object-cover"
               width={500}
               height={500}
             />

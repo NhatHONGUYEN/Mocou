@@ -120,7 +120,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
 
   return (
     <div className="p-6">
-      <Card className="max-w-md mx-auto">
+      <Card className="max-w-lg mx-auto">
         <CardHeader>
           <CardTitle className="text-xl font-bold">
             Catégorie : {category}
@@ -140,7 +140,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
             ref={inputRef}
             className="border p-2 rounded w-full mb-4"
           />
-          <div className="flex gap-4 mb-4">
+          <div className="flex gap-4  mb-4">
             <Button onClick={handleCheckAnswer}>
               <Check className="w-4 h-4 mr-2" /> Vérifier
             </Button>

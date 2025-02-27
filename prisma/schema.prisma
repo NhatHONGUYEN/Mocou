@@ -14,7 +14,8 @@ model User {
   email         String          @unique
   emailVerified DateTime?
   image         String?
-  password      String? // Ajoutez ce champ pour stocker le mot de passe haché
+  password      String? // Mot de passe haché
+  score         Int             @default(0) // Ajoutez ce champ pour le score de l'utilisateur
   accounts      Account[]
   sessions      Session[]
   Authenticator Authenticator[]

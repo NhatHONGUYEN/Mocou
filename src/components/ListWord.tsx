@@ -11,6 +11,8 @@ import {
   AlertDialogTitle,
 } from "./ui/alert-dialog";
 import { Button } from "./ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { ArrowRight, Check, Lightbulb } from "lucide-react";
 
 export default function GameCategoryPage({ category }: { category: string }) {
   const { data: wordList, isLoading, isError } = useWordList(category);
@@ -117,38 +119,42 @@ export default function GameCategoryPage({ category }: { category: string }) {
 
   return (
     <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">Catégorie : {category}</h1>
-      <div className="mb-4">
-        <p>
-          Score : {score} / {wordList.length}
-        </p>
-      </div>
-      <div className="mb-4">
-        <strong className="text-lg">Mot : {currentWord.word}</strong>
-      </div>
-      <div className="mb-4">
-        <input
-          type="text"
-          placeholder="Entrez la traduction"
-          value={userInput}
-          onChange={(e) => setUserInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          ref={inputRef}
-          className="border p-2 rounded w-full"
-        />
-      </div>
-      <div className="flex gap-4 mb-4">
-        <Button onClick={handleCheckAnswer}>Vérifier</Button>
-        <Button onClick={goToNextWord}>Suivant</Button>
-        <Button onClick={handleShowHint} variant="outline">
-          Afficher l&apos;indice
-        </Button>
-      </div>
-      <div>
-        <p>
-          Progression : {currentIndex + 1} / {wordList.length}
-        </p>
-      </div>
+      <Card className="max-w-md mx-auto">
+        <CardHeader>
+          <CardTitle className="text-xl font-bold">
+            Catégorie : {category}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="mb-2">
+            Score : {score} / {wordList.length}
+          </p>
+          <p className="text-lg font-semibold mb-4">Mot : {currentWord.word}</p>
+          <input
+            type="text"
+            placeholder="Entrez la traduction"
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            ref={inputRef}
+            className="border p-2 rounded w-full mb-4"
+          />
+          <div className="flex gap-4 mb-4">
+            <Button onClick={handleCheckAnswer}>
+              <Check className="w-4 h-4 mr-2" /> Vérifier
+            </Button>
+            <Button onClick={goToNextWord}>
+              <ArrowRight className="w-4 h-4 mr-2" /> Suivant
+            </Button>
+            <Button onClick={handleShowHint}>
+              <Lightbulb className="w-4 h-4 mr-2" /> Indice
+            </Button>
+          </div>
+          <p>
+            Progression : {currentIndex + 1} / {wordList.length}
+          </p>
+        </CardContent>
+      </Card>
 
       {/* MODAL */}
       <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
@@ -164,7 +170,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
           <div className="flex justify-end gap-4 mt-4">
             {/* Si l'utilisateur n'est pas connecté */}
             {!userId && (
-              <Button variant="outline" onClick={() => router.push("/")}>
+              <Button onClick={() => router.push("/")}>
                 Retour à l&apos;accueil
               </Button>
             )}
@@ -172,10 +178,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
             {/* Si l'utilisateur est connecté */}
             {userId && (
               <>
-                <Button
-                  variant="outline"
-                  onClick={() => router.push("/history")}
-                >
+                <Button onClick={() => router.push("/history")}>
                   Voir les scores
                 </Button>
                 <Button

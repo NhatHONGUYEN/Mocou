@@ -29,7 +29,6 @@ export default function NoUserHero() {
                     </Button>
                   </div>
                   <Button
-                    variant="ghost"
                     asChild
                     className="group flex h-fit items-center gap-2"
                   >

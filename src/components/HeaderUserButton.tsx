@@ -12,7 +12,7 @@ export default function HeaderUserButton() {
     <div>
       {!session /* Boutons de connexion et d'inscription */ ? (
         <div className="flex gap-2">
-          <Button asChild variant="outline" size="sm">
+          <Button asChild size="sm">
             <Link href={"/sign-in"}>Log In</Link>
           </Button>
           <Button asChild size="sm">

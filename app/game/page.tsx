@@ -1,11 +1,13 @@
 "use client";
 
 import { useCategories } from "@/hooks/useCategories"; // Importez le hook
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 
 export default function Game() {
   const { data: categories, error, isLoading } = useCategories();
+  const router = useRouter();
 
   if (isLoading) {
     return <div>Chargement en cours...</div>;
@@ -34,19 +36,18 @@ export default function Game() {
           ) => {
             const slug = categoryData.category.replace(/\s+/g, "-"); // Calculer le slug pour chaque catégorie
             return (
-              <Link
-                href={`/game/${slug}`}
-                key={index}
-                className="flex flex-col items-center"
-              >
-                <Avatar className="mb-4 size-20 border md:mb-5 lg:size-24">
+              <div key={index} className="flex flex-col items-center">
+                <Avatar className="mb-4 bg-main size-20 p-4 md:mb-5 lg:size-24">
                   <AvatarImage src={categoryData.imageUrl} />
                   <AvatarFallback>{categoryData.category[0]}</AvatarFallback>
                 </Avatar>
-                <p className="text-center font-medium">
+                <Button
+                  onClick={() => router.push(`/game/${slug}`)}
+                  className="text-center font-medium"
+                >
                   {categoryData.category}
-                </p>
-              </Link>
+                </Button>
+              </div>
             );
           }
         )}

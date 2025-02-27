@@ -13,6 +13,7 @@ import {
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { ArrowRight, Check, Lightbulb } from "lucide-react";
+import { Input } from "./ui/input";
 
 export default function GameCategoryPage({ category }: { category: string }) {
   const { data: wordList, isLoading, isError } = useWordList(category);
@@ -130,7 +131,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
             Score : {score} / {wordList.length}
           </p>
           <p className="text-lg font-semibold mb-4">Mot : {currentWord.word}</p>
-          <input
+          <Input
             type="text"
             placeholder="Entrez la traduction"
             value={userInput}

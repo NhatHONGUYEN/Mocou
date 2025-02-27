@@ -45,44 +45,13 @@ export default function NoUserHero() {
             </div>
           </div>
           <div>
-            <div className="relative ml-auto mr-auto aspect-[1.28581291_/_1] w-full max-w-[37.25rem] lg:ml-auto lg:mr-0">
-              <div className="relative mx-auto aspect-[1.020365896_/_1] h-full w-[79.35%] max-w-[29.5625rem] overflow-hidden rounded-3xl">
-                <Image
-                  src="https://shadcnblocks.com/images/block/placeholder-1.svg"
-                  alt=""
-                  className="relative z-10 w-full object-cover"
-                  width={1185}
-                  height={1160}
-                />
-              </div>
-              <div className="absolute -left-[-2%] top-[19.84%] z-30 aspect-[1.765043789_/_1] w-[30.49%] max-w-[11.875rem] overflow-hidden rounded-lg shadow-lg">
-                <Image
-                  src="https://shadcnblocks.com/images/block/placeholder-2.svg"
-                  alt=""
-                  className="size-full object-cover"
-                  width={400}
-                  height={225}
-                />
-              </div>
-              <div className="absolute left-[0%] top-[55%] z-30 aspect-[1.776555024_/_1] w-[43.6%] max-w-[16.375rem] overflow-hidden rounded-lg shadow-lg">
-                <Image
-                  src="https://shadcnblocks.com/images/block/placeholder-3.svg"
-                  alt=""
-                  className="size-full object-cover"
-                  width={400}
-                  height={225}
-                />
-              </div>
-              <div className="absolute right-[0%] top-[40%] z-30 aspect-[1.170212766_/_1] w-[26.48%] max-w-[10.3125rem] overflow-hidden rounded-lg shadow-lg">
-                <Image
-                  src="https://shadcnblocks.com/images/block/placeholder-4.svg"
-                  alt=""
-                  className="size-full object-cover"
-                  width={400}
-                  height={342}
-                />
-              </div>
-            </div>
+            <Image
+              src="/1348441.png"
+              alt=""
+              className="max-h-96 w-full border-2 border-white rounded-md object-cover"
+              width={500}
+              height={500}
+            />
           </div>
         </div>
       </div>

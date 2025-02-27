@@ -2,10 +2,11 @@ import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { Card, CardContent } from "./ui/card";
 
 export default function NoUserHero() {
   return (
-    <section className=" pt-52 pb-32">
+    <section className=" pt-32 pb-32">
       <div className="container">
         <div className="grid grid-cols-1 items-center justify-center gap-12 lg:grid-cols-[minmax(33.75rem,_1fr)_1.5fr] lg:gap-8">
           <div>
@@ -43,14 +44,18 @@ export default function NoUserHero() {
               </div>
             </div>
           </div>
-          <div>
-            <Image
-              src="/1348441.png"
-              alt=""
-              className="w-full border-8 border-white rounded-md object-cover"
-              width={500}
-              height={500}
-            />
+          <div className="flex justify-end ">
+            <Card>
+              <CardContent className="p-0">
+                <Image
+                  src="/peze.gif"
+                  alt="Pochacco"
+                  width={300}
+                  height={300}
+                  className="overflow-hidden rounded-2xl object-cover"
+                />
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>

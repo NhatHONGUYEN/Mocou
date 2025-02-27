@@ -55,9 +55,11 @@ export default function LeaderboardPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-xl font-bold mb-4">Classement des scores</h1>
+      <h1 className="text-xl mb-4">Classement des scores</h1>
       <Card>
-        <CardHeader>Classement</CardHeader>
+        <CardHeader>
+          <h1>Classement</h1>
+        </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>

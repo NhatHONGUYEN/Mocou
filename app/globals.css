@@ -53,3 +53,13 @@ body {
   height: 100vh;
   margin: 0;
 }
+
+h1,
+h2 {
+  font-family: var(--font-archivo-black), sans-serif;
+}
+
+body,
+p {
+  font-family: var(--font-lexend-mega), sans-serif;
+}

@@ -11,7 +11,7 @@ export default function UserHero() {
         <div className="grid grid-cols-1 items-center justify-center gap-12 lg:grid-cols-2 lg:gap-8">
           <div>
             <div className="flex flex-col gap-3">
-              <h1 className="text-4xl leading-tight text-foreground md:text-5xl lg:text-[3.5rem]">
+              <h1 className="text-4xl  text-foreground md:text-5xl lg:text-[3.5rem]">
                 Trouvez les mots cachés
               </h1>
               <p className="mb-5 text-lg text-foreground">

@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Archivo_Black, Lexend_Mega } from "next/font/google";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import Header from "@/components/Header";
 import QueryProvider from "@/lib/QueryProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const archivoBlack = Archivo_Black({
+  variable: "--font-archivo-black",
   subsets: ["latin"],
+  weight: ["400"], // Archivo Black n'a qu'un seul poids dispo
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const lexendMega = Lexend_Mega({
+  variable: "--font-lexend-mega",
   subsets: ["latin"],
+  weight: ["400"], // Lexend Mega aussi
 });
 
 export const metadata: Metadata = {
@@ -28,12 +30,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} max-w-6xl mx-auto antialiased`}
+        className={`${archivoBlack.variable} ${lexendMega.variable} max-w-6xl mx-auto antialiased`}
       >
         <SessionProvider>
           <QueryProvider>
             <Header />
-            {children}{" "}
+            {children}
           </QueryProvider>
         </SessionProvider>
       </body>

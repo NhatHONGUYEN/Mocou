@@ -1,11 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { useCategories } from "@/hooks/useCategories"; // Importez le hook
+import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function Game() {
-  const router = useRouter();
   const { data: categories, error, isLoading } = useCategories();
 
   if (isLoading) {
@@ -17,22 +16,41 @@ export default function Game() {
   }
 
   return (
-    <div>
-      <h1>Choisissez une catégorie</h1>
-      <ul>
-        {categories.map((category: string, index: number) => (
-          <li key={index}>
-            <Button
-              onClick={() => {
-                const slug = category.replace(/\s+/g, "-");
-                router.push(`/game/${slug}`);
-              }}
-            >
-              {category}
-            </Button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <section className="py-32">
+      <div className="container flex flex-col items-center text-center">
+        <h2 className="my-6 text-pretty text-2xl font-bold lg:text-4xl">
+          Choisissez une catégorie
+        </h2>
+        <p className="mb-8 max-w-3xl text-muted-foreground lg:text-xl">
+          Découvrez nos différentes catégories et choisissez celle qui vous
+          intéresse le plus.
+        </p>
+      </div>
+      <div className="container mt-16 grid gap-x-8 gap-y-16 grid-cols-2 md:grid-cols-3">
+        {categories.map(
+          (
+            categoryData: { category: string; imageUrl: string },
+            index: number
+          ) => {
+            const slug = categoryData.category.replace(/\s+/g, "-"); // Calculer le slug pour chaque catégorie
+            return (
+              <Link
+                href={`/game/${slug}`}
+                key={index}
+                className="flex flex-col items-center"
+              >
+                <Avatar className="mb-4 size-20 border md:mb-5 lg:size-24">
+                  <AvatarImage src={categoryData.imageUrl} />
+                  <AvatarFallback>{categoryData.category[0]}</AvatarFallback>
+                </Avatar>
+                <p className="text-center font-medium">
+                  {categoryData.category}
+                </p>
+              </Link>
+            );
+          }
+        )}
+      </div>
+    </section>
   );
 }

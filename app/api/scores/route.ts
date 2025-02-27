@@ -23,11 +23,21 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId"); // Récupère le paramètre "userId"
+
+    // Si userId est fourni, récupère uniquement les scores de cet utilisateur
+    // Sinon, récupère tous les scores
+    const category = searchParams.get("category");
     const scores = await prisma.score.findMany({
-      orderBy: { createdAt: "desc" }, // Trier par date
-      include: { user: true }, // Inclure les infos du user si nécessaire
+      where: {
+        userId: userId ? userId : undefined, // Filtre par utilisateur si userId est fourni
+        category: category ? category : undefined, // Filtre par catégorie si elle est fournie
+      },
+      orderBy: { score: "desc" },
+      include: { user: true },
     });
 
     return NextResponse.json(scores, { status: 200 });

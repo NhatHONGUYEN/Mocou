@@ -17,9 +17,21 @@ export default function UserHero() {
         asChild
         className="group flex h-fit items-center gap-2"
       >
-        <Link href="/scores">
+        <Link href="/leaderboard">
           <p className="font-mono text-sm font-medium uppercase text-foreground">
             Voir les scores
+          </p>
+          <ChevronRight className="h-4 w-4 shrink-0 stroke-foreground transition-transform group-hover:translate-x-2" />
+        </Link>
+      </Button>
+      <Button
+        variant="ghost"
+        asChild
+        className="group flex h-fit items-center gap-2"
+      >
+        <Link href="/history">
+          <p className="font-mono text-sm font-medium uppercase text-foreground">
+            Voir l(historique)
           </p>
           <ChevronRight className="h-4 w-4 shrink-0 stroke-foreground transition-transform group-hover:translate-x-2" />
         </Link>

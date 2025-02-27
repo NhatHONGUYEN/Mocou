@@ -174,7 +174,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
               <>
                 <Button
                   variant="outline"
-                  onClick={() => router.push("/scores")}
+                  onClick={() => router.push("/history")}
                 >
                   Voir les scores
                 </Button>

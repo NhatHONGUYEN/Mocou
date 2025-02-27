@@ -128,10 +128,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
             !
           </AlertDialogDescription>
           <div className="flex justify-end gap-4 mt-4">
-            <Button variant="outline" onClick={() => router.push("/")}>
-              Retour à l&apos;accueil
-            </Button>
-            <Button variant="secondary" onClick={() => router.push("/scores")}>
+            <Button variant="outline" onClick={() => router.push("/scores")}>
               Voir les scores
             </Button>
             <Button onClick={restartGame}>Recommencer</Button>

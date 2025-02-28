@@ -15,6 +15,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { ArrowRight, Check, Lightbulb } from "lucide-react";
 import { Input } from "./ui/input";
 import Image from "next/image";
+import { useToast } from "@/hooks/use-toast";
 
 export default function GameCategoryPage({ category }: { category: string }) {
   const { data: wordList, isLoading, isError } = useWordList(category);
@@ -28,6 +29,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
   const [showNextWordModal, setShowNextWordModal] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const { data: session } = useSession();
+  const { toast } = useToast();
 
   const userId = session?.user?.id;
 
@@ -62,9 +64,42 @@ export default function GameCategoryPage({ category }: { category: string }) {
   const handleCheckAnswer = () => {
     if (userInput === wordList[currentIndex].translation) {
       setScore((prevScore) => prevScore + 1);
-      goToNextWord();
+      toast({
+        description: (
+          <Image
+            src="/correct.gif"
+            alt="Bravo"
+            className="ml-16"
+            width={200}
+            height={200}
+          />
+        ),
+        duration: 2000,
+      });
+
+      // Vérifier si c'est le dernier mot
+      if (currentIndex === wordList.length - 1) {
+        setIsFinished(true);
+        setShowDialog(true);
+
+        // Enregistrer le score si l'utilisateur est connecté
+        if (userId) {
+          saveScore(score, category);
+        }
+      } else {
+        // Passer au mot suivant sans ouvrir le dialogue
+        setCurrentIndex((prevIndex) => prevIndex + 1);
+        setUserInput("");
+      }
     } else {
-      alert("Incorrect. Essayez encore !");
+      toast({
+        description: (
+          <div className="flex pl-20 gap-4">
+            <Image src="/Incorrect.gif" alt="Bravo" width={200} height={200} />
+          </div>
+        ),
+        duration: 3000,
+      });
     }
     setUserInput("");
   };
@@ -84,16 +119,12 @@ export default function GameCategoryPage({ category }: { category: string }) {
   };
 
   const confirmNextWord = () => {
-    // Fermer la modal immédiatement
     setShowNextWordModal(false);
-
-    // Attendre 300ms avant de passer au mot suivant
     setTimeout(() => {
       setCurrentIndex((prevIndex) => prevIndex + 1);
       setUserInput("");
-    }, 300); // Ajustez le délai selon vos besoins
+    }, 300);
   };
-
   const restartGame = () => {
     setCurrentIndex(0);
     setUserInput("");
@@ -128,7 +159,11 @@ export default function GameCategoryPage({ category }: { category: string }) {
   };
 
   const handleShowHint = () => {
-    alert(`Indice : ${wordList[currentIndex].hint}`);
+    toast({
+      title: "Indice :",
+      description: wordList[currentIndex].hint,
+      variant: "destructive",
+    });
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {

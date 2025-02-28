@@ -21,16 +21,16 @@ export default function UserHero() {
               </p>
               <div>
                 <div className="flex flex-col items-center gap-4 lg:flex-row">
-                  <div className="shrink-0">
-                    <Button asChild>
+                  <div className="shrink-0 w-full sm:w-auto">
+                    <Button asChild className="w-full sm:w-auto">
                       <Link href="/game">Play</Link>
                     </Button>
                   </div>
                   <Button
                     asChild
-                    className="group flex h-fit items-center gap-2"
+                    className="group flex h-fit items-center gap-2 w-full sm:w-auto" // Ajoutez w-full pour mobile
                   >
-                    <Link href="leaderboard">
+                    <Link href="/leaderboard">
                       <p>Voir les scores</p>
                       <ChevronRight className="h-4 w-4 shrink-0 stroke-foreground transition-transform group-hover:translate-x-2" />
                     </Link>

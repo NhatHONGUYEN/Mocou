@@ -22,14 +22,14 @@ export default function NoUserHero() {
               </p>
               <div>
                 <div className="flex flex-col items-center gap-4 lg:flex-row">
-                  <div className="shrink-0">
-                    <Button asChild>
+                  <div className="shrink-0 w-full sm:w-auto">
+                    <Button asChild className="w-full sm:w-auto">
                       <Link href="/game">Jouer</Link>
                     </Button>
                   </div>
                   <Button
                     asChild
-                    className="group flex h-fit items-center gap-2"
+                    className="group flex h-fit items-center gap-2 w-full sm:w-auto"
                   >
                     <Link href="/sign-up">
                       <p>Voir plus</p>

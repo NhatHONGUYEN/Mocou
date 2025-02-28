@@ -41,9 +41,7 @@ export default function HeaderUserButton() {
               </SheetTrigger>
               <SheetContent side="top">
                 <SheetHeader>
-                  <SheetTitle>
-                    <h1 className="text-2xl">Menu Utilisateur</h1>
-                  </SheetTitle>
+                  <SheetTitle>Menu Utilisateur</SheetTitle>
                   <SheetDescription>
                     Connectez-vous ou inscrivez-vous pour accéder à plus de
                     fonctionnalités.

@@ -46,9 +46,15 @@ export default function Game() {
                 </Avatar>
                 <Button
                   onClick={() => router.push(`/game/${slug}`)}
-                  className="text-center font-medium"
+                  className="text-center truncate sm:whitespace-normal" // Ajoutez truncate pour mobile et sm:whitespace-normal pour les écrans plus larges
                 >
-                  {categoryData.category}
+                  {/* Affichez les 10 premiers caractères sur mobile et le texte complet sur les écrans plus larges */}
+                  <span className="sm:hidden">
+                    {categoryData.category.slice(0, 8)}
+                  </span>
+                  <span className="hidden sm:inline">
+                    {categoryData.category}
+                  </span>
                 </Button>
               </div>
             );

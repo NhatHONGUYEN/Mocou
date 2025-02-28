@@ -223,7 +223,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
             <Image
               src={currentWord.imageUrl}
               alt={currentWord.word}
-              className="mb-4 mx-auto rounded-lg"
+              className="mb-4 mx-auto w-40 md:w-full mt-4  rounded-lg"
               width={300}
               height={200}
             />

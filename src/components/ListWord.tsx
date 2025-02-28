@@ -140,7 +140,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
   const currentWord = wordList[currentIndex];
 
   return (
-    <div className="mt-44">
+    <div className="py-32">
       <Card className="max-w-sm  mx-auto">
         <CardHeader>
           <CardTitle className="text-xl font-bold">

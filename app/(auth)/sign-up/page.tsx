@@ -73,7 +73,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center ">
+    <div className="flex  py-32 items-center justify-center ">
       <div className=" p-8  w-96">
         <h1 className="text-2xl font-bold mb-6 text-center">Inscription</h1>
         <Form {...form}>

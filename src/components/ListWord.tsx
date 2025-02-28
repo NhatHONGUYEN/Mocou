@@ -180,7 +180,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
 
       {/* MODAL pour le mot suivant */}
       <AlertDialog open={showNextWordModal} onOpenChange={setShowNextWordModal}>
-        <AlertDialogContent className="p-6 text-center bg-bg">
+        <AlertDialogContent className="p-6  text-center bg-bg">
           <AlertDialogTitle>La Solution</AlertDialogTitle>
           <AlertDialogDescription>
             <p className="text-lg  mb-4">Mot : {currentWord.word}</p>

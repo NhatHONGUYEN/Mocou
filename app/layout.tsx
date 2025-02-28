@@ -35,8 +35,10 @@ export default function RootLayout({
       >
         <SessionProvider>
           <QueryProvider>
-            <Header />
-            {children}
+            <div className="mx-auto max-w-6xl">
+              <Header />
+              {children}
+            </div>
             <Toaster />
           </QueryProvider>
         </SessionProvider>

@@ -5,6 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import Header from "@/components/Header";
 import QueryProvider from "@/lib/QueryProvider";
 import { Toaster } from "@/components/ui/toaster";
+import { ScreenSize } from "@/components/ScreenSize";
 
 const archivoBlack = Archivo_Black({
   variable: "--font-archivo-black",
@@ -40,6 +41,7 @@ export default function RootLayout({
               {children}
             </div>
             <Toaster />
+            <ScreenSize />
           </QueryProvider>
         </SessionProvider>
       </body>

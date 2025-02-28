@@ -7,12 +7,10 @@ export default function Header() {
     <section className="py-4">
       <div className="container">
         <nav className="flex items-center justify-between">
-          {/* Logo avec Avatar */}
           <Link href={"/"} className="flex items-center gap-2">
             <Avatar>
               <AvatarImage src="/logo.jpg" alt="Logo" />
               <AvatarFallback>M</AvatarFallback>{" "}
-              {/* Si l'image ne charge pas */}
             </Avatar>
             <span className="text-lg font-semibold">Mocou</span>
           </Link>

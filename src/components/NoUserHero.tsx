@@ -21,15 +21,15 @@ export default function NoUserHero() {
                 linguistiques. Amusez-vous et progressez à votre rythme !
               </p>
               <div>
-                <div className="flex flex-col items-center gap-4 lg:flex-row">
-                  <div className="shrink-0 w-full sm:w-auto">
-                    <Button asChild className="w-full sm:w-auto">
+                <div className="flex flex-col items-center gap-4 md:flex-row">
+                  <div className="shrink-0 w-full md:w-auto">
+                    <Button asChild className="w-full md:w-auto">
                       <Link href="/game">Jouer</Link>
                     </Button>
                   </div>
                   <Button
                     asChild
-                    className="group flex h-fit items-center gap-2 w-full sm:w-auto"
+                    className="group flex h-fit items-center gap-2 w-full md:w-auto"
                   >
                     <Link href="/sign-up">
                       <p>Voir plus</p>
@@ -40,7 +40,7 @@ export default function NoUserHero() {
               </div>
             </div>
           </div>
-          <div className="flex justify-end ">
+          <div className="flex md:mx-auto lg:justify-end ">
             <Card>
               <CardContent className="p-0">
                 <Image

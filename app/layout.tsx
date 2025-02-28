@@ -36,7 +36,7 @@ export default function RootLayout({
       >
         <SessionProvider>
           <QueryProvider>
-            <div className="mx-auto w-72 max-w-6xl">
+            <div className="mx-auto w-72 sm:w-auto max-w-6xl">
               <Header />
               {children}
             </div>

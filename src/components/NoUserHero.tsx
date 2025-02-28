@@ -14,7 +14,7 @@ export default function NoUserHero() {
               <h1 className="text-4xl leading-tight text-foreground md:text-5xl lg:text-[3.5rem]">
                 Découvrez les mots en coréen !
               </h1>
-              <p className="mb-5 text-lg text-foreground">
+              <p className="mb-5 md:text-lg text-foreground">
                 Bienvenue dans Mocou, un jeu amusant pour apprendre le coréen
                 avec notre adorable ami, le chien Pochacco ! Explorez et trouvez
                 les mots cachés tout en développant vos compétences

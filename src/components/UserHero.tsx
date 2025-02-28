@@ -14,7 +14,7 @@ export default function UserHero() {
               <h1 className="text-4xl  text-foreground md:text-5xl lg:text-[3.5rem]">
                 Trouvez les mots cachés
               </h1>
-              <p className="mb-5 text-lg text-foreground">
+              <p className="mb-5 md:text-lg text-foreground">
                 Ce jeu est conçu pour tester votre capacité à trouver des mots
                 cachés. Amusez-vous à découvrir tous les mots et améliorez vos
                 compétences linguistiques.

@@ -183,7 +183,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
         <AlertDialogContent className="p-6  text-center bg-bg">
           <AlertDialogTitle>La Solution</AlertDialogTitle>
           <AlertDialogDescription>
-            <p className="text-lg  mb-4">Mot : {currentWord.word}</p>
+            Mot : {currentWord.word}
             <Image
               src={currentWord.imageUrl}
               alt={currentWord.word}
@@ -191,7 +191,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
               width={300}
               height={200}
             />
-            <p>Traduction : {currentWord.translation}</p>
+            Traduction : {currentWord.translation}
           </AlertDialogDescription>
           <div className="flex justify-end gap-4 mt-4">
             <Button onClick={confirmNextWord}>Fermer</Button>

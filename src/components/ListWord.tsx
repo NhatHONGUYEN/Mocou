@@ -14,6 +14,7 @@ import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { ArrowRight, Check, Lightbulb } from "lucide-react";
 import { Input } from "./ui/input";
+import Image from "next/image";
 
 export default function GameCategoryPage({ category }: { category: string }) {
   const { data: wordList, isLoading, isError } = useWordList(category);
@@ -24,6 +25,8 @@ export default function GameCategoryPage({ category }: { category: string }) {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
   const [showDialog, setShowDialog] = useState(false);
+  const [showNextWordModal, setShowNextWordModal] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const { data: session } = useSession();
 
   const userId = session?.user?.id;
@@ -33,6 +36,14 @@ export default function GameCategoryPage({ category }: { category: string }) {
       inputRef.current.focus();
     }
   }, [currentIndex]);
+
+  useEffect(() => {
+    if (!showNextWordModal && isClosing) {
+      setCurrentIndex((prevIndex) => prevIndex + 1);
+      setUserInput("");
+      setIsClosing(false);
+    }
+  }, [showNextWordModal, isClosing]);
 
   if (!wordList && !isLoading) {
     return notFound();
@@ -60,8 +71,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
 
   const goToNextWord = () => {
     if (currentIndex < wordList.length - 1) {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-      setUserInput("");
+      setShowNextWordModal(true);
     } else {
       setIsFinished(true);
       setShowDialog(true);
@@ -71,6 +81,17 @@ export default function GameCategoryPage({ category }: { category: string }) {
         saveScore(score, category);
       }
     }
+  };
+
+  const confirmNextWord = () => {
+    // Fermer la modal immédiatement
+    setShowNextWordModal(false);
+
+    // Attendre 300ms avant de passer au mot suivant
+    setTimeout(() => {
+      setCurrentIndex((prevIndex) => prevIndex + 1);
+      setUserInput("");
+    }, 300); // Ajustez le délai selon vos besoins
   };
 
   const restartGame = () => {
@@ -157,7 +178,28 @@ export default function GameCategoryPage({ category }: { category: string }) {
         </CardContent>
       </Card>
 
-      {/* MODAL */}
+      {/* MODAL pour le mot suivant */}
+      <AlertDialog open={showNextWordModal} onOpenChange={setShowNextWordModal}>
+        <AlertDialogContent className="p-6 bg-bg">
+          <AlertDialogTitle>Mot Suivant</AlertDialogTitle>
+          <AlertDialogDescription>
+            <p className="text-lg  mb-4">Mot : {currentWord.word}</p>
+            <Image
+              src={currentWord.imageUrl}
+              alt={currentWord.word}
+              className="mb-4"
+              width={300}
+              height={200}
+            />
+            <p>Traduction : {currentWord.translation}</p>
+          </AlertDialogDescription>
+          <div className="flex justify-end gap-4 mt-4">
+            <Button onClick={confirmNextWord}>Fermer</Button>
+          </div>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      {/* MODAL de fin de jeu */}
       <AlertDialog open={showDialog} onOpenChange={setShowDialog}>
         <AlertDialogContent className="p-6 bg-bg">
           <AlertDialogTitle>Félicitations 🎉</AlertDialogTitle>

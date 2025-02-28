@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import bcrypt from "bcryptjs";
 import Link from "next/link";
+import { toast } from "@/hooks/use-toast";
 
 // Schéma de validation Zod
 const signUpSchema = z.object({
@@ -59,6 +60,10 @@ export default function SignUpPage() {
           data.message || "Une erreur s'est produite lors de l'inscription."
         );
       }
+      toast({
+        title: "Inscription réussie!",
+        description: "Vous êtes maintenant inscrit.",
+      });
 
       router.push("/sign-in"); // Redirigez l'utilisateur vers la page de connexion après l'inscription
     } catch (err) {

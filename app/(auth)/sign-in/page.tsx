@@ -18,6 +18,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import Link from "next/link";
+import { toast } from "@/hooks/use-toast";
 
 // Schéma de validation Zod
 const signInSchema = z.object({
@@ -50,13 +51,17 @@ export default function SignInPage() {
       form.setError("root", { message: result.error });
     } else {
       router.push("/"); // Redirigez l'utilisateur vers la page d'accueil après la connexion
+      toast({
+        title: "Re-Bonjour!",
+        description: "Vous êtes maintenant connecté.",
+      });
     }
   };
 
   return (
     <div className="flex py-32 items-center justify-center ">
       <div className=" p-8  w-96">
-        <h1 className="text-2xl font-bold mb-6 text-center">Connexion</h1>
+        <h1 className="text-3xl  mb-6 text-center">Connexion</h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             {/* Champ Email */}

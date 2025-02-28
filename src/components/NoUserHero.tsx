@@ -22,10 +22,7 @@ export default function NoUserHero() {
               <div>
                 <div className="flex flex-col items-center gap-4 lg:flex-row">
                   <div className="shrink-0">
-                    <Button
-                      asChild
-                      className="block h-fit w-fit rounded-full px-6 py-3.5 font-mono text-[0.8125rem] font-medium uppercase leading-4 tracking-widest"
-                    >
+                    <Button asChild>
                       <Link href="/game">Play</Link>
                     </Button>
                   </div>
@@ -34,9 +31,7 @@ export default function NoUserHero() {
                     className="group flex h-fit items-center gap-2"
                   >
                     <Link href="#">
-                      <p className="font-mono text-sm font-medium uppercase text-foreground">
-                        Wants More?
-                      </p>
+                      <p>Wants More?</p>
                       <ChevronRight className="h-4 w-4 shrink-0 stroke-foreground transition-transform group-hover:translate-x-2" />
                     </Link>
                   </Button>

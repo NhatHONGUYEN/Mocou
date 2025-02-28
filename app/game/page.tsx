@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/Loader";
+import Image from "next/image";
 
 export default function Game() {
   const { data: categories, error, isLoading } = useCategories();
@@ -19,8 +20,9 @@ export default function Game() {
   }
 
   return (
-    <section className="py-32">
+    <section className="py-16 ">
       <div className="container flex flex-col items-center text-center">
+        <Image src="/category.gif" alt="Logo" width={200} height={200} />
         <h2 className="my-6 text-pretty text-2xl font-bold lg:text-4xl">
           Choisissez une catégorie
         </h2>

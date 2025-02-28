@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${archivoBlack.variable} ${lexendMega.variable} max-w-6xl mx-auto antialiased`}
+        className={`${archivoBlack.variable} ${lexendMega.variable} antialiased`}
       >
         <SessionProvider>
           <QueryProvider>

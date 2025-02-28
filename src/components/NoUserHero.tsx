@@ -12,26 +12,27 @@ export default function NoUserHero() {
           <div>
             <div className="flex flex-col gap-3">
               <h1 className="text-4xl leading-tight text-foreground md:text-5xl lg:text-[3.5rem]">
-                Trouvez les mots cachés
+                Découvrez les mots en coréen !
               </h1>
               <p className="mb-5 text-lg text-foreground">
-                Ce jeu est conçu pour tester votre capacité à trouver des mots
-                cachés. Amusez-vous à découvrir tous les mots et améliorez vos
-                compétences linguistiques.
+                Bienvenue dans Mocou, un jeu amusant pour apprendre le coréen
+                avec notre adorable ami, le chien Pochacco ! Explorez et trouvez
+                les mots cachés tout en développant vos compétences
+                linguistiques. Amusez-vous et progressez à votre rythme !
               </p>
               <div>
                 <div className="flex flex-col items-center gap-4 lg:flex-row">
                   <div className="shrink-0">
                     <Button asChild>
-                      <Link href="/game">Play</Link>
+                      <Link href="/game">Jouer</Link>
                     </Button>
                   </div>
                   <Button
                     asChild
                     className="group flex h-fit items-center gap-2"
                   >
-                    <Link href="#">
-                      <p>Wants More?</p>
+                    <Link href="/sign-up">
+                      <p>Voir plus</p>
                       <ChevronRight className="h-4 w-4 shrink-0 stroke-foreground transition-transform group-hover:translate-x-2" />
                     </Link>
                   </Button>
@@ -43,10 +44,10 @@ export default function NoUserHero() {
             <Card>
               <CardContent className="p-0">
                 <Image
-                  src="/peze.gif"
+                  src="/pochacco (2).gif"
                   alt="Pochacco"
-                  width={300}
-                  height={300}
+                  width={400}
+                  height={400}
                   className="overflow-hidden rounded-2xl object-cover"
                 />
               </CardContent>

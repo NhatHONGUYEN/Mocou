@@ -11,6 +11,7 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/table";
+import Loader from "@/components/Loader";
 
 interface ScoreWithUser {
   id: string;
@@ -48,7 +49,7 @@ export default function HistoryPage() {
   }, [userId]);
 
   if (isLoading) {
-    return <div>Chargement en cours...</div>;
+    return <Loader />;
   }
 
   return (

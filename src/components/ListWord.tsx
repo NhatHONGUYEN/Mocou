@@ -16,6 +16,7 @@ import { ArrowRight, Check, Lightbulb } from "lucide-react";
 import { Input } from "./ui/input";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
+import Loader from "./Loader";
 
 export default function GameCategoryPage({ category }: { category: string }) {
   const { data: wordList, isLoading, isError } = useWordList(category);
@@ -52,7 +53,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
   }
 
   if (isLoading) {
-    return <div>Chargement en cours...</div>;
+    return <Loader />;
   }
 
   if (isError) {

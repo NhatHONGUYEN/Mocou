@@ -11,12 +11,12 @@ export default function HeaderUserButton() {
   return (
     <div>
       {!session /* Boutons de connexion et d'inscription */ ? (
-        <div className="flex gap-2">
+        <div className="flex gap-4">
           <Button asChild size="sm">
-            <Link href={"/sign-in"}>Log In</Link>
+            <Link href={"/sign-in"}>Se Connecter</Link>
           </Button>
           <Button asChild size="sm">
-            <Link href={"/sign-up"}>Sign Up</Link>
+            <Link href={"/sign-up"}>S&apos;inscrire</Link>
           </Button>
         </div>
       ) : (

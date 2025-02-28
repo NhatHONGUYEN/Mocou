@@ -4,13 +4,14 @@ import { useCategories } from "@/hooks/useCategories"; // Importez le hook
 import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import Loader from "@/components/Loader";
 
 export default function Game() {
   const { data: categories, error, isLoading } = useCategories();
   const router = useRouter();
 
   if (isLoading) {
-    return <div>Chargement en cours...</div>;
+    return <Loader />;
   }
 
   if (error) {

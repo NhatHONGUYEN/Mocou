@@ -1,4 +1,3 @@
-// app/sign-up/page.tsx
 "use client"; // Ce composant utilise des hooks, donc il doit être un Client Component
 
 import { useForm } from "react-hook-form";
@@ -15,7 +14,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import bcrypt from "bcryptjs";
 import Link from "next/link";
 import { toast } from "@/hooks/use-toast";
 
@@ -43,15 +41,12 @@ export default function SignUpPage() {
 
   const onSubmit = async (values: z.infer<typeof signUpSchema>) => {
     try {
-      // Hacher le mot de passe avant de l'envoyer à l'API
-      const hashedPassword = await bcrypt.hash(values.password, 10);
-
       const response = await fetch("/api/auth/signUp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...values, password: hashedPassword }),
+        body: JSON.stringify(values),
       });
 
       if (!response.ok) {

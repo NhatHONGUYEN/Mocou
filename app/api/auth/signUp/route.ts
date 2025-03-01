@@ -1,12 +1,17 @@
 // app/api/auth/signup/route.ts
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+
+import argon2 from "argon2"; // Importer Argon2
+
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
   const { name, email, password } = await request.json();
 
   try {
-    // Vérifiez si l'utilisateur existe déjà
+    // 1. Vérifiez si l'utilisateur existe déjà
     const existingUser = await prisma.user.findUnique({
       where: { email },
     });
@@ -18,20 +23,25 @@ export async function POST(request: Request) {
       );
     }
 
-    // Créez un nouvel utilisateur
+    // 2. Hacher le mot de passe avec Argon2
+    const hashedPassword = await argon2.hash(password);
+
+    // 3. Créez un nouvel utilisateur avec le mot de passe haché
     const user = await prisma.user.create({
       data: {
         name,
         email,
-        password,
+        password: hashedPassword, // Stocker le mot de passe haché
       },
     });
 
+    // 4. Retourner une réponse réussie
     return NextResponse.json(
       { message: "Utilisateur créé avec succès.", user },
       { status: 201 }
     );
-  } catch {
+  } catch (error) {
+    console.error("Erreur lors de l'inscription :", error);
     return NextResponse.json(
       { message: "Une erreur s'est produite lors de l'inscription." },
       { status: 500 }

@@ -57,7 +57,6 @@ export default function SignInPage() {
       });
     }
   };
-
   return (
     <div className="flex py-32 items-center justify-center ">
       <div className=" p-8  w-96">

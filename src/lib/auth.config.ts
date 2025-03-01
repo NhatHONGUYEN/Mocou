@@ -1,11 +1,12 @@
-import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { PrismaClient } from "@prisma/client";
 import argon2 from "argon2";
+import NextAuth, { Session, User } from "next-auth";
+import { JWT } from "next-auth/jwt";
 
 const prisma = new PrismaClient();
 
-export const authConfig = {
+const authConfig = {
   providers: [
     Credentials({
       name: "Credentials",
@@ -16,7 +17,7 @@ export const authConfig = {
       async authorize(credentials) {
         try {
           const user = await prisma.user.findUnique({
-            where: { email: credentials.email as string },
+            where: { email: credentials?.email as string },
           });
 
           if (!user) {
@@ -28,6 +29,11 @@ export const authConfig = {
           }
 
           console.log("Hash stocké :", user.password);
+          if (!credentials) {
+            throw new Error(
+              "Les informations d'identification sont manquantes."
+            );
+          }
           console.log("Mot de passe fourni :", credentials.password);
 
           const isValidPassword = await argon2.verify(
@@ -53,13 +59,13 @@ export const authConfig = {
   ],
 
   callbacks: {
-    async session({ session, token }) {
+    async session({ session, token }: { session: Session; token: JWT }) {
       if (session.user && token.sub) {
         session.user.id = token.sub;
       }
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user }: { token: JWT; user: User }) {
       if (user?.id) {
         token.sub = String(user.id);
       }
@@ -67,6 +73,8 @@ export const authConfig = {
     },
   },
 
-  session: { strategy: "jwt" },
+  session: { strategy: "jwt" as const },
   secret: process.env.AUTH_SECRET,
-} satisfies NextAuthConfig;
+};
+
+export default NextAuth(authConfig);

@@ -1,14 +1,14 @@
-import Credentials from "next-auth/providers/credentials";
+import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaClient } from "@prisma/client";
 import argon2 from "argon2";
-import NextAuth, { Session, User } from "next-auth";
-import { JWT } from "next-auth/jwt";
+import NextAuth from "next-auth";
+import { NextAuthOptions } from "next-auth";
 
 const prisma = new PrismaClient();
 
-const authConfig = {
+export const authOptions: NextAuthOptions = {
   providers: [
-    Credentials({
+    CredentialsProvider({
       name: "Credentials",
       credentials: {
         email: { label: "Email", type: "text" },
@@ -16,8 +16,14 @@ const authConfig = {
       },
       async authorize(credentials) {
         try {
+          if (!credentials?.email || !credentials?.password) {
+            throw new Error(
+              "Les informations d'identification sont manquantes."
+            );
+          }
+
           const user = await prisma.user.findUnique({
-            where: { email: credentials?.email as string },
+            where: { email: credentials.email },
           });
 
           if (!user) {
@@ -29,16 +35,11 @@ const authConfig = {
           }
 
           console.log("Hash stocké :", user.password);
-          if (!credentials) {
-            throw new Error(
-              "Les informations d'identification sont manquantes."
-            );
-          }
           console.log("Mot de passe fourni :", credentials.password);
 
           const isValidPassword = await argon2.verify(
             user.password,
-            credentials.password as string
+            credentials.password
           );
 
           if (!isValidPassword) {
@@ -59,13 +60,13 @@ const authConfig = {
   ],
 
   callbacks: {
-    async session({ session, token }: { session: Session; token: JWT }) {
+    async session({ session, token }) {
       if (session.user && token.sub) {
         session.user.id = token.sub;
       }
       return session;
     },
-    async jwt({ token, user }: { token: JWT; user: User }) {
+    async jwt({ token, user }) {
       if (user?.id) {
         token.sub = String(user.id);
       }
@@ -73,8 +74,11 @@ const authConfig = {
     },
   },
 
-  session: { strategy: "jwt" as const },
+  session: { strategy: "jwt" },
   secret: process.env.AUTH_SECRET,
+  pages: {
+    signIn: "/sign-in",
+  },
 };
 
-export default NextAuth(authConfig);
+export default NextAuth(authOptions);

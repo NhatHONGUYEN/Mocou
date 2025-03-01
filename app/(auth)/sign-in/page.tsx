@@ -41,6 +41,7 @@ export default function SignInPage() {
   });
 
   const onSubmit = async (values: z.infer<typeof signInSchema>) => {
+    console.log("Tentative de connexion avec les valeurs :", values);
     const result = await signIn("credentials", {
       redirect: false,
       email: values.email,
@@ -48,9 +49,11 @@ export default function SignInPage() {
     });
 
     if (result?.error) {
+      console.error("Erreur de connexion :", result.error);
       form.setError("root", { message: result.error });
     } else {
-      router.push("/"); // Redirigez l'utilisateur vers la page d'accueil après la connexion
+      console.log("Connexion réussie, redirection vers la page d'accueil");
+      router.push("/");
       toast({
         title: "Re-Bonjour!",
         description: "Vous êtes maintenant connecté.",

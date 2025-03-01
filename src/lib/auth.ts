@@ -1,8 +1,8 @@
+// lib/auth.ts
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import { authConfig } from "./auth.config";
 import NextAuth from "next-auth";
-import { NextApiRequest, NextApiResponse } from "next";
 
 const prisma = new PrismaClient();
 
@@ -12,14 +12,11 @@ const authOptions = {
   ...authConfig,
 };
 
-const auth = async (req: NextApiRequest, res: NextApiResponse) => {
-  await NextAuth(req, res, authOptions);
-  return res;
-};
+// Use NextAuth directly
+const auth = NextAuth(authOptions);
 
-const handlers = {
+// Export the handlers
+export const handlers = {
   GET: auth,
   POST: auth,
 };
-
-export { auth, handlers };

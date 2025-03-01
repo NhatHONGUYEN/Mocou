@@ -14,7 +14,7 @@ const authOptions = {
 };
 
 // Use NextAuth directly
-const auth = NextAuth(authOptions);
+export const auth = NextAuth(authOptions);
 
 // Export the handlers
 export const handlers = {

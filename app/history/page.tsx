@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import {
   Table,
@@ -19,6 +20,16 @@ interface ScoreWithUser {
   score: number;
   category: string;
   createdAt: string;
+}
+declare module "next-auth" {
+  interface Session {
+    user: {
+      id: string;
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
+    };
+  }
 }
 
 export default function HistoryPage() {

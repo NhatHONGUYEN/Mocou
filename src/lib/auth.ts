@@ -1,11 +1,23 @@
-import NextAuth from "next-auth";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import { authConfig } from "./auth.config";
+import NextAuth from "next-auth";
+import { NextApiRequest, NextApiResponse } from "next";
 
 const prisma = new PrismaClient();
 
-export const { handlers, auth } = NextAuth({
+const authOptions = {
   adapter: PrismaAdapter(prisma),
+  session: { strategy: "jwt" },
   ...authConfig,
-});
+};
+
+const auth = (req: NextApiRequest, res: NextApiResponse) =>
+  NextAuth(req, res, authOptions);
+
+const handlers = {
+  GET: auth,
+  POST: auth,
+};
+
+export { auth, handlers };

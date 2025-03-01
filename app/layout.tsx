@@ -1,11 +1,10 @@
+// app/layout.tsx
 import type { Metadata } from "next";
 import { Archivo_Black, Lexend_Mega } from "next/font/google";
 import "./globals.css";
-import { SessionProvider } from "next-auth/react";
+
 import Header from "@/components/Header";
-import QueryProvider from "@/lib/QueryProvider";
-import { Toaster } from "@/components/ui/toaster";
-import { ScreenSize } from "@/components/ScreenSize";
+import { Providers } from "@/components/Providers";
 
 const archivoBlack = Archivo_Black({
   variable: "--font-archivo-black",
@@ -34,16 +33,12 @@ export default function RootLayout({
       <body
         className={`${archivoBlack.variable} ${lexendMega.variable} antialiased`}
       >
-        <SessionProvider>
-          <QueryProvider>
-            <div className="mx-auto w-72 sm:w-96 md:w-[600px] lg:w-[800px] xl:w-full max-w-6xl">
-              <Header />
-              {children}
-            </div>
-            <Toaster />
-            <ScreenSize />
-          </QueryProvider>
-        </SessionProvider>
+        <Providers>
+          <div className="mx-auto w-72 sm:w-96 md:w-[600px] lg:w-[800px] xl:w-full max-w-6xl">
+            <Header />
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   );

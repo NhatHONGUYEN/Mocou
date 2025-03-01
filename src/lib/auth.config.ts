@@ -1,7 +1,6 @@
-// auth.config.ts
 import Credentials from "next-auth/providers/credentials";
 import type { NextAuthConfig } from "next-auth";
-import bcrypt from "bcryptjs";
+import argon2 from "argon2"; // 🔄 Remplace bcrypt par argon2
 import { prisma } from "./prisma";
 
 export default {
@@ -24,14 +23,14 @@ export default {
           throw new Error("Utilisateur non trouvé.");
         }
 
-        // 2. Vérifiez si le mot de passe est correct
+        // 2. Vérifiez si le mot de passe est correct avec Argon2
         if (!user.password) {
           throw new Error("Aucun mot de passe défini pour cet utilisateur.");
         }
 
-        const isValidPassword = await bcrypt.compare(
-          credentials.password as string,
-          user.password
+        const isValidPassword = await argon2.verify(
+          user.password, // Hash stocké
+          credentials.password as string // Mot de passe fourni
         );
 
         if (!isValidPassword) {

@@ -12,8 +12,10 @@ const authOptions = {
   ...authConfig,
 };
 
-const auth = (req: NextApiRequest, res: NextApiResponse) =>
-  NextAuth(req, res, authOptions);
+const auth = async (req: NextApiRequest, res: NextApiResponse) => {
+  await NextAuth(req, res, authOptions);
+  return res;
+};
 
 const handlers = {
   GET: auth,

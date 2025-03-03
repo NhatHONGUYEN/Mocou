@@ -34,7 +34,7 @@ export default function RootLayout({
         className={`${archivoBlack.variable} ${lexendMega.variable} antialiased`}
       >
         <Providers>
-          <div className="mx-auto w-72 sm:w-96 md:w-[600px] lg:w-[800px] xl:w-full max-w-6xl">
+          <div className="mx-auto w-72 sm:w-96 md:w-[600px] lg:w-[800px] xl:w-full max-w-4xl">
             <Header />
             {children}
           </div>

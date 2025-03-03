@@ -47,7 +47,7 @@ export default function LeaderboardPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {scores.map((score, index) => (
+                {scores.slice(0, 10).map((score, index) => (
                   <TableRow key={score.id} className="hover:bg-bg">
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>

@@ -8,7 +8,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-
+import { useSession } from "next-auth/react"; // Ajout de l'import useSession
 import ListItem from "./ui/listItem";
 
 // Liste des leçons par catégorie
@@ -48,6 +48,9 @@ const scores: { title: string; href: string; description: string }[] = [
 ];
 
 export default function NavigationMenuComponents() {
+  // Récupération de l'état de la session
+  const { data: session } = useSession();
+
   return (
     <NavigationMenu className="z-[5]">
       <NavigationMenuList>
@@ -72,28 +75,32 @@ export default function NavigationMenuComponents() {
           </NavigationMenuContent>
         </NavigationMenuItem>
       </NavigationMenuList>
-      <NavigationMenuList>
-        {/* Élément : Score */}
-        <NavigationMenuItem>
-          <NavigationMenuTrigger className="m750:max-w-[80px] m750:text-xs">
-            Scores
-          </NavigationMenuTrigger>
 
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-              {scores.map((score) => (
-                <ListItem
-                  key={score.title}
-                  title={score.title}
-                  href={score.href}
-                >
-                  {score.description}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-      </NavigationMenuList>
+      {/* Afficher le menu Scores uniquement si l'utilisateur est connecté */}
+      {session && (
+        <NavigationMenuList>
+          {/* Élément : Score */}
+          <NavigationMenuItem>
+            <NavigationMenuTrigger className="m750:max-w-[80px] m750:text-xs">
+              Scores
+            </NavigationMenuTrigger>
+
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                {scores.map((score) => (
+                  <ListItem
+                    key={score.title}
+                    title={score.title}
+                    href={score.href}
+                  >
+                    {score.description}
+                  </ListItem>
+                ))}
+              </ul>
+            </NavigationMenuContent>
+          </NavigationMenuItem>
+        </NavigationMenuList>
+      )}
     </NavigationMenu>
   );
 }

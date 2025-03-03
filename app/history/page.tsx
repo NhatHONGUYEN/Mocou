@@ -44,12 +44,10 @@ export default function HistoryPage() {
                   key={score.id}
                   className="hover:bg-blank hover:text-bg"
                 >
-                  <TableCell className="text-center">{index + 1}</TableCell>
-                  <TableCell className="text-center">{score.score}</TableCell>
-                  <TableCell className="text-center">
-                    {score.category}
-                  </TableCell>
-                  <TableCell className="text-center">
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{score.score}</TableCell>
+                  <TableCell>{score.category}</TableCell>
+                  <TableCell>
                     {new Date(score.createdAt).toLocaleDateString()}
                   </TableCell>
                 </TableRow>

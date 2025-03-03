@@ -23,7 +23,7 @@ export default function UserHero() {
                 <div className="flex flex-col items-center gap-4 md:flex-row">
                   <div className="shrink-0 w-full md:w-auto">
                     <Button asChild className="w-full md:w-auto">
-                      <Link href="/game">Play</Link>
+                      <Link href="/game">Jouer</Link>
                     </Button>
                   </div>
                   <Button

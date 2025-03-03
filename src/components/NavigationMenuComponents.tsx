@@ -33,6 +33,20 @@ const lessons: { title: string; href: string; description: string }[] = [
   },
 ];
 
+const scores: { title: string; href: string; description: string }[] = [
+  {
+    title: "Historique des scores",
+    href: "/history",
+    description: "Consultez vos scores précédents et suivez votre progression.",
+  },
+  {
+    title: "Tout les scores",
+    href: "/leaderboard",
+    description:
+      "Découvrez comment vous vous situez par rapport aux autres joueurs.",
+  },
+];
+
 export default function NavigationMenuComponents() {
   return (
     <NavigationMenu className="z-[5]">
@@ -52,6 +66,28 @@ export default function NavigationMenuComponents() {
                   href={lesson.href}
                 >
                   {lesson.description}
+                </ListItem>
+              ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+      <NavigationMenuList>
+        {/* Élément : Score */}
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="m750:max-w-[80px] m750:text-xs">
+            Scores
+          </NavigationMenuTrigger>
+
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+              {scores.map((score) => (
+                <ListItem
+                  key={score.title}
+                  title={score.title}
+                  href={score.href}
+                >
+                  {score.description}
                 </ListItem>
               ))}
             </ul>

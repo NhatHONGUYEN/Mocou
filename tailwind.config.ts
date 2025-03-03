@@ -12,6 +12,7 @@ export default {
     extend: {
       colors: {
         main: "var(--main)",
+        mute: "var(--mute)",
         overlay: "var(--overlay)",
         bg: "var(--bg)",
         bw: "var(--bw)",

@@ -17,15 +17,7 @@ import {
 import Link from "next/link";
 import { toast } from "@/hooks/use-toast";
 import { Card } from "@/components/ui/card";
-
-// Schéma de validation Zod
-const signUpSchema = z.object({
-  name: z.string().min(1, "Le nom est requis."),
-  email: z.string().email("Veuillez entrer un email valide."),
-  password: z
-    .string()
-    .min(6, "Le mot de passe doit contenir au moins 6 caractères."),
-});
+import { signUpSchema } from "@/lib/validations/auth";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -141,9 +133,9 @@ export default function SignUpPage() {
             </Button>
           </form>
         </Form>
-        <p className="mt-4 text-center text-sm text-gray-600">
+        <p className="mt-4 text-center text-sm ">
           Déjà un compte ?{" "}
-          <Link href="/sign-in" className="text-blue-500 hover:underline">
+          <Link href="/sign-in" className="text-mute hover:underline">
             Se connecter
           </Link>
         </p>

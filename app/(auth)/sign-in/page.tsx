@@ -137,9 +137,9 @@ export default function SignInPage() {
             </Button>
           </form>
         </Form>
-        <p className="mt-4 text-center text-sm text-gray-600">
+        <p className="mt-4 text-center text-sm ">
           Pas encore de compte ?{" "}
-          <Link href="/sign-up" className="text-blue-500 hover:underline">
+          <Link href="/sign-up" className=" text-mute hover:underline">
             S&apos;inscrire
           </Link>
         </p>

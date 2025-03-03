@@ -17,9 +17,9 @@
   --border: #000;
   --text: #000;
   --mtext: #000; /* text that is placed on background with main color e.g. text color of default button */
+  --mute: #6b7280; /* couleur de texte grisée pour les contenus secondaires */
   --ring: #000;
   --ring-offset: #fff;
-
   --border-radius: 20px;
   --box-shadow-x: 6px;
   --box-shadow-y: 4px;

@@ -1,5 +1,5 @@
 // app/sign-in/page.tsx
-"use client"; // Ce composant utilise des hooks, donc il doit être un Client Component
+"use client";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,14 +20,7 @@ import {
 import Link from "next/link";
 import { toast } from "@/hooks/use-toast";
 import { Card } from "@/components/ui/card";
-
-// Schéma de validation Zod
-const signInSchema = z.object({
-  email: z.string().email("Veuillez entrer un email valide."),
-  password: z
-    .string()
-    .min(6, "Le mot de passe doit contenir au moins 6 caractères."),
-});
+import { signInSchema } from "@/lib/validations/auth";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -42,29 +35,59 @@ export default function SignInPage() {
   });
 
   const onSubmit = async (values: z.infer<typeof signInSchema>) => {
-    console.log("Tentative de connexion avec les valeurs :", values);
-    const result = await signIn("credentials", {
-      redirect: false,
-      email: values.email,
-      password: values.password,
-    });
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: values.email,
+        password: values.password,
+      });
 
-    if (result?.error) {
-      console.error("Erreur de connexion :", result.error);
-      form.setError("root", { message: result.error });
-    } else {
-      console.log("Connexion réussie, redirection vers la page d'accueil");
-      router.push("/");
-      toast({
-        title: "Re-Bonjour!",
-        description: "Vous êtes maintenant connecté.",
+      if (result?.error) {
+        // Messages d'erreur personnalisés pour les codes d'erreur standard
+        if (result.error === "CredentialsSignin") {
+          // On tente de vérifier si l'utilisateur existe d'abord
+          const userExists = await fetch("/api/auth/check-user", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: values.email }),
+          }).then((res) => res.json());
+
+          if (userExists.exists) {
+            // L'utilisateur existe, donc le problème est le mot de passe
+            form.setError("password", {
+              message: "Mot de passe incorrect.",
+            });
+          } else {
+            // L'utilisateur n'existe pas
+            form.setError("email", {
+              message: "Cet email ne correspond à aucun compte.",
+            });
+          }
+        } else {
+          // Gestion des autres erreurs
+          form.setError("root", {
+            message:
+              "Échec de la connexion. Veuillez vérifier vos identifiants.",
+          });
+        }
+      } else {
+        router.push("/");
+        toast({
+          title: "Re-Bonjour!",
+          description: "Vous êtes maintenant connecté.",
+        });
+      }
+    } catch {
+      form.setError("root", {
+        message: "Une erreur est survenue. Veuillez réessayer.",
       });
     }
   };
+
   return (
-    <div className="flex py-32 items-center justify-center ">
-      <Card className=" p-8  w-96">
-        <h1 className="text-3xl  mb-6 text-center">Connexion</h1>
+    <div className="flex py-32 items-center justify-center">
+      <Card className="p-8 w-96">
+        <h1 className="text-3xl mb-6 text-center">Connexion</h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             {/* Champ Email */}
@@ -77,7 +100,7 @@ export default function SignInPage() {
                   <FormControl>
                     <Input placeholder="Votre email" {...field} />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-500" />
                 </FormItem>
               )}
             />
@@ -96,7 +119,7 @@ export default function SignInPage() {
                       {...field}
                     />
                   </FormControl>
-                  <FormMessage />
+                  <FormMessage className="text-red-500" />
                 </FormItem>
               )}
             />

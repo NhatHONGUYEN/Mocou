@@ -45,9 +45,6 @@ export const authOptions: NextAuthOptions = {
             throw new Error("Aucun mot de passe défini pour cet utilisateur.");
           }
 
-          console.log("Hash stocké :", user.password);
-          console.log("Mot de passe fourni :", credentials.password);
-
           const isValidPassword = await argon2.verify(
             user.password,
             credentials.password

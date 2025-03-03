@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import Link from "next/link";
 import { toast } from "@/hooks/use-toast";
+import { Card } from "@/components/ui/card";
 
 // Schéma de validation Zod
 const signInSchema = z.object({
@@ -62,7 +63,7 @@ export default function SignInPage() {
   };
   return (
     <div className="flex py-32 items-center justify-center ">
-      <div className=" p-8  w-96">
+      <Card className=" p-8  w-96">
         <h1 className="text-3xl  mb-6 text-center">Connexion</h1>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -119,7 +120,7 @@ export default function SignInPage() {
             S&apos;inscrire
           </Link>
         </p>
-      </div>
+      </Card>
     </div>
   );
 }

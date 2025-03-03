@@ -49,15 +49,18 @@ export function WordCard({
           Score : {score} / {totalWords}
         </p>
         <p className="text-lg font-semibold mb-4">Mot : {currentWord.word}</p>
-        <Input
-          type="text"
-          placeholder="Entrez la traduction"
-          value={userInput}
-          onChange={onInputChange}
-          onKeyDown={onKeyDown}
-          ref={inputRef}
-          className="border p-2 rounded w-full mb-4"
-        />
+        <div className="mb-4">
+          <Input
+            id="translation-input"
+            type="text"
+            placeholder="Entrez la traduction"
+            value={userInput}
+            onChange={onInputChange}
+            onKeyDown={onKeyDown}
+            ref={inputRef}
+            className="border p-2 rounded w-full"
+          />
+        </div>
         <div className="flex flex-col gap-4 mb-4">
           <Button onClick={onCheck}>
             <Check className="w-4 h-4 mr-2" /> Vérifier

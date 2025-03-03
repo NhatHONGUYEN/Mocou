@@ -119,13 +119,33 @@ export default function GameCategory({ category }: { category: string }) {
 
       <EndGameModal
         isOpen={showDialog}
-        onClose={setShowDialog}
+        onClose={(value) => {
+          setShowDialog(value);
+          // Si le modal se ferme sans utiliser les boutons, réinitialiser quand même
+          if (!value) {
+            restartGame();
+          }
+        }}
         score={score}
         totalWords={wordList.length}
         isLoggedIn={!!userId}
-        onViewScores={() => router.push("/history")}
-        onRestart={restartGame}
-        onHome={() => router.push("/")}
+        onViewScores={() => {
+          restartGame(); // Important: réinitialiser avant de naviguer
+          router.push("/history");
+        }}
+        onRestart={() => {
+          restartGame();
+          // Forcer une mise au point sur l'input après réinitialisation
+          setTimeout(() => {
+            if (inputRef.current) {
+              inputRef.current.focus();
+            }
+          }, 0);
+        }}
+        onHome={() => {
+          restartGame(); // Important: réinitialiser avant de naviguer
+          router.push("/");
+        }}
       />
     </div>
   );

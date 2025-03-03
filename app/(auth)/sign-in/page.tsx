@@ -73,7 +73,7 @@ export default function SignInPage() {
       } else {
         router.push("/");
         toast({
-          title: "Re-Bonjour!",
+          title: "Coucou!",
           description: "Vous êtes maintenant connecté.",
         });
       }

@@ -75,6 +75,28 @@ export default function NavigationMenuComponents() {
           </NavigationMenuContent>
         </NavigationMenuItem>
       </NavigationMenuList>
+      <NavigationMenuList>
+        {/* Élément : About */}
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="m750:max-w-[80px] m750:text-xs">
+            About
+          </NavigationMenuTrigger>
+
+          <NavigationMenuContent>
+            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+              {lessons.map((lesson) => (
+                <ListItem
+                  key={lesson.title}
+                  title={lesson.title}
+                  href={lesson.href}
+                >
+                  {lesson.description}
+                </ListItem>
+              ))}
+            </ul>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
 
       {/* Afficher le menu Scores uniquement si l'utilisateur est connecté */}
       {session && (

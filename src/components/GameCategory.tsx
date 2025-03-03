@@ -9,6 +9,8 @@ import { useGameStore } from "@/store/useGameStore";
 import { WordCard } from "./WordCard";
 import { NextWordModal } from "./NextWordModal";
 import { EndGameModal } from "./EndGameModal";
+import { shuffleArray } from "@/lib/utils";
+import { WordData } from "@/lib/type";
 
 export default function GameCategory({ category }: { category: string }) {
   const { data: wordList, isLoading, isError } = useWordList(category);
@@ -36,12 +38,12 @@ export default function GameCategory({ category }: { category: string }) {
     setShowDialog,
   } = useGameStore();
 
-  // Définir la liste de mots lorsqu'elle est chargée et réinitialiser si la catégorie change
   useEffect(() => {
     if (wordList) {
-      // Si la catégorie a changé, réinitialiser le jeu
+      // Si la catégorie a changé, réinitialiser le jeu avec les mots mélangés
       if (currentCategory !== category) {
-        setWordList(wordList, category);
+        const shuffledWords = shuffleArray(wordList) as WordData[];
+        setWordList(shuffledWords, category);
       }
     }
   }, [wordList, category, currentCategory, setWordList]);

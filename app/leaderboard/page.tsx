@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import {
   Table,
@@ -12,46 +11,17 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import Loader from "@/components/Loader";
-
-interface ScoreWithUser {
-  id: string;
-  userId: string;
-  score: number;
-  category: string;
-  createdAt: string;
-  user: {
-    id: string;
-    name: string | null;
-    email: string;
-    image: string | null;
-  };
-}
+import { useLeaderboardScores } from "@/hooks/useLeaderboardScores";
 
 export default function LeaderboardPage() {
-  const [scores, setScores] = useState<ScoreWithUser[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchScores = async () => {
-      try {
-        const response = await fetch("/api/scores");
-        if (!response.ok) {
-          throw new Error("Erreur lors de la récupération des scores");
-        }
-        const data = await response.json();
-        setScores(data);
-      } catch (error) {
-        console.error("Erreur :", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchScores();
-  }, []);
+  const { data: scores = [], isLoading, error } = useLeaderboardScores();
 
   if (isLoading) {
     return <Loader />;
+  }
+
+  if (error) {
+    return <div>Une erreur est survenue: {(error as Error).message}</div>;
   }
 
   return (
@@ -112,7 +82,7 @@ export default function LeaderboardPage() {
             {scores.map((score, index) => (
               <div
                 key={score.id}
-                className="p-4 border-2 border-text rounded-lg  mb-2"
+                className="p-4 border-2 border-text rounded-lg mb-2"
               >
                 <div className="flex gap-4 items-center">
                   <p className="font-bold">
@@ -120,7 +90,7 @@ export default function LeaderboardPage() {
                   </p>
                   <span>#{index + 1}</span>
                 </div>
-                <p className="text-xs  mt-1">{score.category}</p>
+                <p className="text-xs mt-1">{score.category}</p>
                 <div className="mt-2 flex justify-between text-sm">
                   <span className="font-semibold">Score: {score.score}</span>
                 </div>

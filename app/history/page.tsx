@@ -1,8 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
-
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import {
   Table,
@@ -13,54 +10,17 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import Loader from "@/components/Loader";
-
-interface ScoreWithUser {
-  id: string;
-  userId: string;
-  score: number;
-  category: string;
-  createdAt: string;
-}
-declare module "next-auth" {
-  interface Session {
-    user: {
-      id: string;
-      name?: string | null;
-      email?: string | null;
-      image?: string | null;
-    };
-  }
-}
+import { useUserScores } from "@/hooks/useUserScores";
 
 export default function HistoryPage() {
-  const { data: session } = useSession();
-  const userId = session?.user?.id;
-  const [scores, setScores] = useState<ScoreWithUser[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchScores = async () => {
-      try {
-        const response = await fetch(`/api/scores?userId=${userId}`);
-        if (!response.ok) {
-          throw new Error("Erreur lors de la récupération des scores");
-        }
-        const data = await response.json();
-        setScores(data);
-      } catch (error) {
-        console.error("Erreur :", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (userId) {
-      fetchScores();
-    }
-  }, [userId]);
+  const { data: scores = [], isLoading, error } = useUserScores();
 
   if (isLoading) {
     return <Loader />;
+  }
+
+  if (error) {
+    return <div>Une erreur est survenue: {(error as Error).message}</div>;
   }
 
   return (

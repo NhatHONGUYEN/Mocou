@@ -2,7 +2,7 @@
 
 import { notFound, useRouter } from "next/navigation";
 import { useWordList } from "@/hooks/useWordList";
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import {
   AlertDialog,
@@ -15,25 +15,46 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { ArrowRight, Check, Lightbulb } from "lucide-react";
 import { Input } from "./ui/input";
 import Image from "next/image";
-import { useToast } from "@/hooks/use-toast";
 import Loader from "./Loader";
+import { useGameStore } from "@/store/useGameStore";
 
-export default function GameCategoryPage({ category }: { category: string }) {
+export default function GameCategory({ category }: { category: string }) {
   const { data: wordList, isLoading, isError } = useWordList(category);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [userInput, setUserInput] = useState("");
-  const [, setIsFinished] = useState(false);
-  const [score, setScore] = useState(0);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const router = useRouter();
-  const [showDialog, setShowDialog] = useState(false);
-  const [showNextWordModal, setShowNextWordModal] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
   const { data: session } = useSession();
-  const { toast } = useToast();
-
   const userId = session?.user?.id;
 
+  // Get state and actions from Zustand store
+  const {
+    currentIndex,
+    userInput,
+    score,
+    showDialog,
+    showNextWordModal,
+    currentCategory,
+    setUserInput,
+    checkAnswer,
+    goToNextWord,
+    confirmNextWord,
+    restartGame,
+    resetGameState,
+    showHint,
+    setWordList,
+    setShowDialog,
+  } = useGameStore();
+
+  // Set word list when it's loaded and reset if category changes
+  useEffect(() => {
+    if (wordList) {
+      // If category has changed, reset the game
+      if (currentCategory !== category) {
+        setWordList(wordList, category);
+      }
+    }
+  }, [wordList, category, currentCategory, setWordList]);
+
+  // Focus on input when current index changes
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -41,12 +62,23 @@ export default function GameCategoryPage({ category }: { category: string }) {
   }, [currentIndex]);
 
   useEffect(() => {
-    if (!showNextWordModal && isClosing) {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-      setUserInput("");
-      setIsClosing(false);
+    // If you want to preserve state across navigations within your site,
+    // but reset when the user closes the tab/window
+    const handleBeforeUnload = () => {
+      resetGameState();
+    };
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("beforeunload", handleBeforeUnload);
     }
-  }, [showNextWordModal, isClosing]);
+
+    // Cleanup function to run when component is unmounted
+    return () => {
+      if (typeof window !== "undefined") {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      }
+    };
+  }, [resetGameState]);
 
   if (!wordList && !isLoading) {
     return notFound();
@@ -62,114 +94,9 @@ export default function GameCategoryPage({ category }: { category: string }) {
     );
   }
 
-  const handleCheckAnswer = () => {
-    if (userInput === wordList[currentIndex].translation) {
-      setScore((prevScore) => prevScore + 1);
-      toast({
-        description: (
-          <Image
-            src="/correct.gif"
-            alt="Bravo"
-            className="ml-16"
-            width={200}
-            height={200}
-          />
-        ),
-        duration: 2000,
-      });
-
-      // Vérifier si c'est le dernier mot
-      if (currentIndex === wordList.length - 1) {
-        setIsFinished(true);
-        setShowDialog(true);
-
-        // Enregistrer le score si l'utilisateur est connecté
-        if (userId) {
-          saveScore(score, category);
-        }
-      } else {
-        // Passer au mot suivant sans ouvrir le dialogue
-        setCurrentIndex((prevIndex) => prevIndex + 1);
-        setUserInput("");
-      }
-    } else {
-      toast({
-        description: (
-          <div className="flex pl-20 gap-4">
-            <Image src="/Incorrect.gif" alt="Bravo" width={200} height={200} />
-          </div>
-        ),
-        duration: 3000,
-      });
-    }
-    setUserInput("");
-  };
-
-  const goToNextWord = () => {
-    if (currentIndex < wordList.length - 1) {
-      setShowNextWordModal(true);
-    } else {
-      setIsFinished(true);
-      setShowDialog(true);
-
-      // Enregistrer le score si l'utilisateur est connecté
-      if (userId) {
-        saveScore(score, category);
-      }
-    }
-  };
-
-  const confirmNextWord = () => {
-    setShowNextWordModal(false);
-    setTimeout(() => {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-      setUserInput("");
-    }, 300);
-  };
-  const restartGame = () => {
-    setCurrentIndex(0);
-    setUserInput("");
-    setIsFinished(false);
-    setScore(0);
-    setShowDialog(false);
-  };
-
-  const saveScore = async (score: number, category: string) => {
-    try {
-      const response = await fetch("/api/scores", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId,
-          score,
-          category,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Erreur lors de l'enregistrement du score");
-      }
-
-      const data = await response.json();
-      console.log("Score enregistré :", data);
-    } catch (error) {
-      console.error("Erreur :", error);
-    }
-  };
-
-  const handleShowHint = () => {
-    toast({
-      title: "Indice :",
-      description: wordList[currentIndex].hint,
-      variant: "destructive",
-    });
-  };
-
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      handleCheckAnswer();
+      checkAnswer(category, userId);
     }
   };
 
@@ -177,7 +104,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
 
   return (
     <div className="py-32">
-      <Card className="max-w-sm  mx-auto">
+      <Card className="max-w-sm mx-auto">
         <CardHeader>
           <CardTitle className="text-xl font-bold">
             Catégorie : {category}
@@ -197,14 +124,14 @@ export default function GameCategoryPage({ category }: { category: string }) {
             ref={inputRef}
             className="border p-2 rounded w-full mb-4"
           />
-          <div className="flex flex-col gap-4  mb-4">
-            <Button onClick={handleCheckAnswer}>
+          <div className="flex flex-col gap-4 mb-4">
+            <Button onClick={() => checkAnswer(category, userId)}>
               <Check className="w-4 h-4 mr-2" /> Vérifier
             </Button>
-            <Button onClick={goToNextWord}>
+            <Button onClick={() => goToNextWord(category, userId)}>
               <ArrowRight className="w-4 h-4 mr-2" /> Suivant
             </Button>
-            <Button onClick={handleShowHint}>
+            <Button onClick={showHint}>
               <Lightbulb className="w-4 h-4 mr-2" /> Indice
             </Button>
           </div>
@@ -215,15 +142,18 @@ export default function GameCategoryPage({ category }: { category: string }) {
       </Card>
 
       {/* MODAL pour le mot suivant */}
-      <AlertDialog open={showNextWordModal} onOpenChange={setShowNextWordModal}>
-        <AlertDialogContent className="p-6  text-center bg-bg">
+      <AlertDialog
+        open={showNextWordModal}
+        onOpenChange={() => setShowDialog(!showNextWordModal)}
+      >
+        <AlertDialogContent className="p-6 text-center bg-bg">
           <AlertDialogTitle>La Solution</AlertDialogTitle>
           <AlertDialogDescription>
             Mot : {currentWord.word}
             <Image
               src={currentWord.imageUrl}
               alt={currentWord.word}
-              className="mb-4 mx-auto w-40 md:w-full mt-4  rounded-lg"
+              className="mb-4 mx-auto w-40 h-40 mt-4 object-cover rounded-lg"
               width={300}
               height={200}
             />
@@ -260,14 +190,7 @@ export default function GameCategoryPage({ category }: { category: string }) {
                 <Button onClick={() => router.push("/history")}>
                   Voir les scores
                 </Button>
-                <Button
-                  onClick={() => {
-                    saveScore(score, category);
-                    restartGame();
-                  }}
-                >
-                  Recommencer
-                </Button>
+                <Button onClick={restartGame}>Recommencer</Button>
               </>
             )}
           </div>

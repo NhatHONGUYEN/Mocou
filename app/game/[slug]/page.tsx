@@ -1,4 +1,4 @@
-import ListWord from "@/components/ListWord";
+import GameCategory from "@/components/GameCategory";
 
 export default async function GameCategoryPage(props: {
   params: Promise<{ slug: string }>;
@@ -7,7 +7,7 @@ export default async function GameCategoryPage(props: {
 
   return (
     <div>
-      <ListWord category={category.slug} />
+      <GameCategory category={category.slug} />
     </div>
   );
 }

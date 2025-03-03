@@ -6,6 +6,7 @@ import { WordData } from "@/lib/type";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import { Progress } from "./ui/progress"; // Ajout de l'import
 
 interface WordCardProps {
   category: string;
@@ -16,7 +17,6 @@ interface WordCardProps {
   userInput: string;
   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  // Change this line to fix the type error
   inputRef: RefObject<HTMLInputElement | null>;
   onCheck: () => void;
   onNext: () => void;
@@ -37,6 +37,10 @@ export function WordCard({
   onNext,
   onHint,
 }: WordCardProps) {
+  // Calculer le pourcentage de progression pour la barre
+  const progressPercentage =
+    totalWords > 0 ? Math.round(((currentIndex + 1) / totalWords) * 100) : 0;
+
   return (
     <Card className="max-w-sm mx-auto">
       <CardHeader>
@@ -72,9 +76,17 @@ export function WordCard({
             <Lightbulb className="w-4 h-4 mr-2" /> Indice
           </Button>
         </div>
-        <p>
-          Progression : {currentIndex + 1} / {totalWords}
-        </p>
+
+        {/* Remplacer le paragraphe par la barre de progression */}
+        <div className="space-y-2">
+          <div className="flex justify-between text-xs text-muted-foreground">
+            <span>Progression</span>
+            <span>
+              {currentIndex + 1} / {totalWords}
+            </span>
+          </div>
+          <Progress value={progressPercentage} className="w-full" />
+        </div>
       </CardContent>
     </Card>
   );

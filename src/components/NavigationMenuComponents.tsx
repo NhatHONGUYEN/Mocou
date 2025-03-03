@@ -42,6 +42,7 @@ export default function NavigationMenuComponents() {
           <NavigationMenuTrigger className="m750:max-w-[80px] m750:text-xs">
             Leçons
           </NavigationMenuTrigger>
+
           <NavigationMenuContent>
             <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
               {lessons.map((lesson) => (

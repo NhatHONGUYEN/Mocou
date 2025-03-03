@@ -11,6 +11,7 @@ import {
   CardFooter,
   Card,
 } from "@/components/ui/card";
+import FADE_DOWN_ANIMATION_VARIANTS from "../../../animation/FADE_DOWN_ANIMATION_VARIANTS";
 
 // Type pour représenter la structure d'un mot
 interface Word {
@@ -51,41 +52,43 @@ export default function LessonPage() {
   const description = `Apprenez le vocabulaire des ${title.toLowerCase()} pour enrichir votre communication quotidienne.`;
 
   return (
-    <div className="container mx-auto py-32">
-      <div className="mb-16">
-        <h1 className="text-3xl font-bold mb-2">Leçon : {title}</h1>
-        <p className="text-lg text-muted-foreground ">{description}</p>
-      </div>
+    <FADE_DOWN_ANIMATION_VARIANTS>
+      <div className="container mx-auto py-32">
+        <div className="mb-16">
+          <h1 className="text-3xl font-bold mb-2">Leçon : {title}</h1>
+          <p className="text-lg text-muted-foreground ">{description}</p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {words?.map((item: Word) => (
-          <Card
-            key={item.id}
-            className="relative overflow-hidden rounded-2xl group"
-          >
-            <CardHeader className="pb-2 text-center"></CardHeader>
-            <CardContent className="pt-0 pb-4 flex justify-center">
-              {/* Conteneur pour l'effet de zoom */}
-              <div className="w-40 h-40 rounded-lg overflow-hidden">
-                <div className="w-full h-full transition-transform duration-300 group-hover:scale-110">
-                  <Image
-                    src={item.imageUrl}
-                    alt={item.word}
-                    className="w-full h-full object-cover"
-                    width={300}
-                    height={200}
-                    style={{ transformOrigin: "center" }}
-                  />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {words?.map((item: Word) => (
+            <Card
+              key={item.id}
+              className="relative overflow-hidden rounded-2xl group"
+            >
+              <CardHeader className="pb-2 text-center"></CardHeader>
+              <CardContent className="pt-0 pb-4 flex justify-center">
+                {/* Conteneur pour l'effet de zoom */}
+                <div className="w-40 h-40 rounded-lg overflow-hidden">
+                  <div className="w-full h-full transition-transform duration-300 group-hover:scale-110">
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.word}
+                      className="w-full h-full object-cover"
+                      width={300}
+                      height={200}
+                      style={{ transformOrigin: "center" }}
+                    />
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-            <CardFooter className="flex-col items-center space-y-2">
-              <p className="font-bold">Mot : {item.word}</p>
-              <div>Traduction : {item.translation}</div>
-            </CardFooter>
-          </Card>
-        ))}
+              </CardContent>
+              <CardFooter className="flex-col items-center space-y-2">
+                <p className="font-bold">Mot : {item.word}</p>
+                <div>Traduction : {item.translation}</div>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
       </div>
-    </div>
+    </FADE_DOWN_ANIMATION_VARIANTS>
   );
 }

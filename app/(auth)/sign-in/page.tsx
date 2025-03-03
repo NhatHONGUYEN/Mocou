@@ -21,6 +21,7 @@ import Link from "next/link";
 import { toast } from "@/hooks/use-toast";
 import { Card } from "@/components/ui/card";
 import { signInSchema } from "@/lib/validations/auth";
+import FADE_DOWN_ANIMATION_VARIANTS from "../../../animation/FADE_DOWN_ANIMATION_VARIANTS";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -85,65 +86,67 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex py-32 items-center justify-center">
-      <Card className="p-8 w-96">
-        <h1 className="text-3xl mb-6 text-center">Connexion</h1>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            {/* Champ Email */}
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Votre email" {...field} />
-                  </FormControl>
-                  <FormMessage className="text-red-500" />
-                </FormItem>
+    <FADE_DOWN_ANIMATION_VARIANTS>
+      <div className="flex py-32 items-center justify-center">
+        <Card className="p-8 w-96">
+          <h1 className="text-3xl mb-6 text-center">Connexion</h1>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              {/* Champ Email */}
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Votre email" {...field} />
+                    </FormControl>
+                    <FormMessage className="text-red-500" />
+                  </FormItem>
+                )}
+              />
+
+              {/* Champ Mot de passe */}
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Mot de passe</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Votre mot de passe"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-500" />
+                  </FormItem>
+                )}
+              />
+
+              {/* Message d'erreur global */}
+              {form.formState.errors.root && (
+                <p className="text-red-500 text-sm">
+                  {form.formState.errors.root.message}
+                </p>
               )}
-            />
 
-            {/* Champ Mot de passe */}
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Mot de passe</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="password"
-                      placeholder="Votre mot de passe"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage className="text-red-500" />
-                </FormItem>
-              )}
-            />
-
-            {/* Message d'erreur global */}
-            {form.formState.errors.root && (
-              <p className="text-red-500 text-sm">
-                {form.formState.errors.root.message}
-              </p>
-            )}
-
-            {/* Bouton de soumission */}
-            <Button type="submit" className="w-full">
-              Se connecter
-            </Button>
-          </form>
-        </Form>
-        <p className="mt-4 text-center text-sm ">
-          Pas encore de compte ?{" "}
-          <Link href="/sign-up" className=" text-mute hover:underline">
-            S&apos;inscrire
-          </Link>
-        </p>
-      </Card>
-    </div>
+              {/* Bouton de soumission */}
+              <Button type="submit" className="w-full">
+                Se connecter
+              </Button>
+            </form>
+          </Form>
+          <p className="mt-4 text-center text-sm ">
+            Pas encore de compte ?{" "}
+            <Link href="/sign-up" className=" text-mute hover:underline">
+              S&apos;inscrire
+            </Link>
+          </p>
+        </Card>
+      </div>
+    </FADE_DOWN_ANIMATION_VARIANTS>
   );
 }

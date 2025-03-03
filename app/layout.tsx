@@ -5,6 +5,7 @@ import "./globals.css";
 
 import Header from "@/components/Header";
 import { Providers } from "@/components/Providers";
+import FADE_DOWN_ANIMATION_VARIANTS from "../animation/FADE_DOWN_ANIMATION_VARIANTS";
 
 const archivoBlack = Archivo_Black({
   variable: "--font-archivo-black",
@@ -35,8 +36,10 @@ export default function RootLayout({
       >
         <Providers>
           <div className="mx-auto w-72 sm:w-96 md:w-[600px] lg:w-[800px] xl:w-full max-w-4xl">
-            <Header />
-            {children}
+            <FADE_DOWN_ANIMATION_VARIANTS>
+              <Header />
+              {children}
+            </FADE_DOWN_ANIMATION_VARIANTS>
           </div>
         </Providers>
       </body>

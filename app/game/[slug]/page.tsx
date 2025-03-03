@@ -1,4 +1,5 @@
 import GameCategory from "@/components/GameCategory";
+import FADE_DOWN_ANIMATION_VARIANTS from "../../../animation/FADE_DOWN_ANIMATION_VARIANTS";
 
 export default async function GameCategoryPage(props: {
   params: Promise<{ slug: string }>;
@@ -6,8 +7,10 @@ export default async function GameCategoryPage(props: {
   const category = await props.params;
 
   return (
-    <div>
-      <GameCategory category={category.slug} />
-    </div>
+    <>
+      <FADE_DOWN_ANIMATION_VARIANTS>
+        <GameCategory category={category.slug} />
+      </FADE_DOWN_ANIMATION_VARIANTS>
+    </>
   );
 }

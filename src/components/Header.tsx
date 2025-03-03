@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"; // Import Avatar
 import HeaderUserButton from "./HeaderUserButton";
+import NavigationMenuComponents from "./NavigationMenuComponents";
 
 export default function Header() {
   return (
@@ -14,7 +15,7 @@ export default function Header() {
             </Avatar>
             <span className="text-lg font-semibold">Mocou</span>
           </Link>
-
+          <NavigationMenuComponents />
           <HeaderUserButton />
         </nav>
       </div>

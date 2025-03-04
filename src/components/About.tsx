@@ -1,3 +1,5 @@
+"use client";
+
 import { ChevronRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -5,8 +7,15 @@ import Image from "next/image";
 import { Card } from "./ui/card";
 import Link from "next/link";
 import FADE_DOWN_ANIMATION_VARIANTS from "../../animation/FADE_DOWN_ANIMATION_VARIANTS";
+import { useSession } from "next-auth/react";
 
 export const About = () => {
+  const { data: session } = useSession();
+
+  if (session) {
+    return null;
+  }
+
   return (
     <section className="py-32 " id="about">
       <div className="container">

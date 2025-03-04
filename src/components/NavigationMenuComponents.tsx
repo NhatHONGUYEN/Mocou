@@ -11,7 +11,7 @@ import {
 import { useSession } from "next-auth/react"; // Ajout de l'import useSession
 import ListItem from "./ui/listItem";
 
-import { infos, lessons, scores } from "@/lib/data";
+import { infos, infosUser, lessons, scores } from "@/lib/data";
 
 export default function NavigationMenuComponents() {
   // Récupération de l'état de la session
@@ -48,10 +48,9 @@ export default function NavigationMenuComponents() {
             <NavigationMenuTrigger className="m750:max-w-[80px] m750:text-xs">
               A propos
             </NavigationMenuTrigger>
-
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                {infos.map((info) => (
+                {(session ? infosUser : infos).map((info) => (
                   <ListItem
                     key={info.title}
                     title={info.title}

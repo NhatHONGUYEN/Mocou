@@ -27,11 +27,11 @@ export default function LeaderboardPage() {
 
   return (
     <FADE_DOWN_ANIMATION_VARIANTS>
-      <div className="p-6">
+      <section className="py-32">
         <h1 className="text-xl mb-4">Classement des scores</h1>
         <Card>
           <CardHeader>
-            <h1>Classement</h1>
+            <h1>Classement 🏆 </h1>
           </CardHeader>
           <CardContent>
             {/* TABLEAU RESPONSIVE */}
@@ -101,7 +101,7 @@ export default function LeaderboardPage() {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </section>
     </FADE_DOWN_ANIMATION_VARIANTS>
   );
 }

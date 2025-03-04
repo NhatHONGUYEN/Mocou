@@ -56,6 +56,23 @@ export const infos: { title: string; href: string; description: string }[] = [
   },
 ];
 
+export const infosUser: { title: string; href: string; description: string }[] =
+  [
+    {
+      title: "Faq",
+      href: "#faq",
+      description:
+        "Des questions sur Mocou ? Consultez nos réponses aux interrogations les plus courantes.",
+    },
+
+    {
+      title: "Contact",
+      href: "#contact",
+      description:
+        "Besoin d'aide ou vous avez des suggestions? N'hésitez pas à nous contacter.",
+    },
+  ];
+
 // Titres des leçons pour l'affichage
 export const lessonTitles: Record<string, string> = {
   animaux: "Animaux",

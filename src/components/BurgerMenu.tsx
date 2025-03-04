@@ -47,7 +47,7 @@ export default function BurgerMenu() {
               <AccordionItem value="lessons">
                 <AccordionTrigger>Leçons</AccordionTrigger>
                 <AccordionContent>
-                  <ul className="grid w-96 gap-3 p-4">
+                  <ul className="grid xs:w-96 gap-3 p-4">
                     {lessons.map((lesson) => (
                       <li key={lesson.title}>
                         <Link
@@ -67,14 +67,14 @@ export default function BurgerMenu() {
               <AccordionItem value="about">
                 <AccordionTrigger>À propos</AccordionTrigger>
                 <AccordionContent>
-                  <ul className="grid w-96 gap-3 p-4">
+                  <ul className="grid xs:w-96 gap-3 p-4">
                     {infos.map((info) => (
                       <li key={info.title}>
                         <Link
                           href={info.href}
                           className="text-muted hover:underline"
                         >
-                          <strong>{info.title}</strong> {info.description}
+                          <strong>{info.title} :</strong> {info.description}
                         </Link>
                       </li>
                     ))}
@@ -88,7 +88,7 @@ export default function BurgerMenu() {
                 <AccordionItem value="scores">
                   <AccordionTrigger>Scores</AccordionTrigger>
                   <AccordionContent>
-                    <ul className="grid w-96 gap-3 p-4">
+                    <ul className="grid xs:w-96 gap-3 p-4">
                       {scores.map((score) => (
                         <li key={score.title}>
                           <Link

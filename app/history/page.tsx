@@ -26,7 +26,7 @@ export default function HistoryPage() {
 
   return (
     <FADE_DOWN_ANIMATION_VARIANTS>
-      <div className="p-6">
+      <section className="py-32">
         <h1 className="text-xl mb-4">Mon historique de scores</h1>
         <Card>
           <CardHeader>
@@ -78,7 +78,7 @@ export default function HistoryPage() {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </section>
     </FADE_DOWN_ANIMATION_VARIANTS>
   );
 }

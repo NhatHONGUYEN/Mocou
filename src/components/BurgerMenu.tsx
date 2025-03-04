@@ -16,7 +16,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "./ui/accordion";
-import { infos, lessons, scores } from "@/lib/data";
+import { lessons, scores } from "@/lib/data";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { SignOut } from "./signout-button";
@@ -55,26 +55,6 @@ export default function BurgerMenu() {
                           className="text-muted hover:underline"
                         >
                           <strong>{lesson.title}:</strong> {lesson.description}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-
-            <Accordion type="single" collapsible className="mt-4">
-              <AccordionItem value="about">
-                <AccordionTrigger>À propos</AccordionTrigger>
-                <AccordionContent>
-                  <ul className="grid xs:w-96 gap-3 p-4">
-                    {infos.map((info) => (
-                      <li key={info.title}>
-                        <Link
-                          href={info.href}
-                          className="text-muted hover:underline"
-                        >
-                          <strong>{info.title} :</strong> {info.description}
                         </Link>
                       </li>
                     ))}

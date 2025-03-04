@@ -4,7 +4,6 @@
 import { SessionProvider } from "next-auth/react";
 import QueryProvider from "@/lib/QueryProvider";
 import { Toaster } from "@/components/ui/toaster";
-import { ScreenSize } from "@/components/ScreenSize";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -12,7 +11,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <QueryProvider>
         {children}
         <Toaster />
-        <ScreenSize />
       </QueryProvider>
     </SessionProvider>
   );

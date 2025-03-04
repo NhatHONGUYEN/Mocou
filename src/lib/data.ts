@@ -79,3 +79,22 @@ export const lessonTitles: Record<string, string> = {
   aliments: "Aliments",
   "objets-du-quotidien": "Objets du quotidien",
 };
+
+export const faqItems = [
+  {
+    question: "🤔 Comment je gagne des points dans le jeu ?",
+    answer:
+      "C'est super simple ! Chaque fois que vous trouvez la bonne traduction d'un mot, vous gagnez un point. Si vous créez un compte (c'est gratuit et rapide 😉), vos scores sont sauvegardés et vous pouvez voir vos progrès au fil du temps. Vous pourrez même comparer vos résultats avec ceux des autres joueurs et peut-être grimper dans notre classement !",
+  },
+  {
+    question:
+      "🌍 Est-ce que je peux apprendre d'autres langues que le coréen ?",
+    answer:
+      "Pour le moment, on se concentre sur le coréen (안녕하세요!). Mais entre nous, on a plein d'idées pour ajouter d'autres langues bientôt ! Vous avez une langue que vous aimeriez apprendre en particulier ? Dites-le nous, votre suggestion pourrait bien devenir notre prochaine priorité !",
+  },
+  {
+    question: "🐶 Qui est ce petit chien adorable dans l'application ?",
+    answer:
+      "Ah, vous avez rencontré Pochacco ! C'est notre petit compagnon, un personnage de Sanrio connu comme 'le chiot sportif'. Avec son énergie débordante et sa personnalité enjouée, il est parfait pour vous accompagner dans votre aventure linguistique ! Il sera là pour célébrer vos victoires, vous encourager après une erreur, et rendre votre apprentissage plus amusant. Considérez-le comme votre coach personnel de coréen... mais en plus mignon ! 🎯",
+  },
+];

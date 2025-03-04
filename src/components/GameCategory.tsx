@@ -9,6 +9,7 @@ import { useGameStore } from "@/store/useGameStore";
 import { WordCard } from "./WordCard";
 import { NextWordModal } from "./NextWordModal";
 import { EndGameModal } from "./EndGameModal";
+import { WordData } from "@/lib/type";
 
 export default function GameCategory({ category }: { category: string }) {
   const { data: wordList, isLoading, isError } = useWordList(category);
@@ -20,6 +21,7 @@ export default function GameCategory({ category }: { category: string }) {
   // Récupérer l'état et les actions du store Zustand
   const {
     currentIndex,
+    currentWordId, // Ajoutez cette ligne
     userInput,
     score,
     showDialog,
@@ -91,7 +93,36 @@ export default function GameCategory({ category }: { category: string }) {
     }
   };
 
-  const currentWord = wordList[currentIndex];
+  // Ajoutez une vérification pour s'assurer qu'un mot valide est toujours disponible
+  const getValidCurrentWord = () => {
+    // Si nous avons un ID, chercher le mot correspondant
+    if (currentWordId && wordList) {
+      const wordById = wordList.find(
+        (word: WordData) => word.id === currentWordId
+      );
+      if (wordById) return wordById;
+    }
+
+    // Sinon, essayer d'utiliser l'index
+    if (wordList && wordList.length > 0) {
+      // Garantir que l'index est dans les limites du tableau
+      const safeIndex = Math.max(
+        0,
+        Math.min(currentIndex, wordList.length - 1)
+      );
+      return wordList[safeIndex];
+    }
+
+    // Si tout échoue, retourner null pour pouvoir gérer ce cas
+    return null;
+  };
+
+  const currentWord = getValidCurrentWord();
+
+  // Puis, ajoutez une vérification avant de rendre les composants
+  if (!currentWord) {
+    return <Loader />;
+  }
 
   return (
     <div className="py-32">

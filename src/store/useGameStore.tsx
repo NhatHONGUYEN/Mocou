@@ -7,6 +7,7 @@ import {
   IncorrectAnswerToast,
 } from "@/components/ToastAnswer";
 import { saveScore } from "./gameActions";
+
 import { GameState, PersistOptions } from "@/lib/type"; // Importez les types
 
 export const useGameStore = create<GameState>()(
@@ -20,6 +21,7 @@ export const useGameStore = create<GameState>()(
       showNextWordModal: false,
       wordList: null,
       currentCategory: null,
+      currentWordId: null,
 
       setUserInput: (input) => set({ userInput: input }),
 
@@ -69,13 +71,26 @@ export const useGameStore = create<GameState>()(
       },
 
       confirmNextWord: () => {
-        set({ showNextWordModal: false });
-        setTimeout(() => {
-          set((state) => ({
-            currentIndex: state.currentIndex + 1,
-            userInput: "",
-          }));
-        }, 300);
+        const { wordList, currentWordId } = get();
+        if (!wordList || !currentWordId) return;
+
+        // Trouver la position actuelle par ID
+        const currentPos = wordList.findIndex(
+          (word) => word.id === currentWordId
+        );
+        if (currentPos === -1) return;
+
+        // Calculer le prochain index
+        const nextPos = (currentPos + 1) % wordList.length;
+        const nextWordId = wordList[nextPos].id;
+
+        // Mettre à jour en une seule opération
+        set({
+          currentIndex: nextPos, // Pour compatibilité
+          currentWordId: nextWordId,
+          userInput: "",
+          showNextWordModal: false,
+        });
       },
 
       restartGame: () => {
@@ -98,18 +113,24 @@ export const useGameStore = create<GameState>()(
           showNextWordModal: false,
           wordList: null,
           currentCategory: null,
+          currentWordId: null, // Modification du gameState pour stocker l'ID courant
         });
       },
 
-      setWordList: (wordList, category) =>
+      setWordList: (wordList, category) => {
+        // Mélanger les mots
+        const shuffledWords = shuffleArray(wordList);
+
         set({
-          wordList,
+          wordList: shuffledWords,
           currentCategory: category,
-          currentIndex: 0,
+          currentIndex: 0, // Conserver pour compatibilité
+          currentWordId: shuffledWords.length > 0 ? shuffledWords[0].id : null,
           score: 0,
           isFinished: false,
           userInput: "",
-        }),
+        });
+      },
 
       showHint: () => {
         const { wordList, currentIndex } = get();
@@ -132,7 +153,17 @@ export const useGameStore = create<GameState>()(
         wordList: state.wordList,
         isFinished: state.isFinished,
         currentCategory: state.currentCategory,
+        currentWordId: state.currentWordId, // Modification du gameState pour stocker l'ID courant
       }),
     } as PersistOptions // Utilisez le type PersistOptions
   )
 );
+
+function shuffleArray<T>(array: T[]): T[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}

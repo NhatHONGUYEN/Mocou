@@ -9,6 +9,7 @@ export interface WordData {
 
 // Type pour les données d'un mote pour l'état du jeu
 export interface GameState {
+  currentWordId: string | null;
   currentIndex: number;
   score: number;
   isFinished: boolean;

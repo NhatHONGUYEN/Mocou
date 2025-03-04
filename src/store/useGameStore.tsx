@@ -47,7 +47,12 @@ export const useGameStore = create<GameState>()(
             set({ isFinished: true, showDialog: true });
             if (userId) saveScore(userId, newScore, category);
           } else {
-            set({ currentIndex: currentIndex + 1, userInput: "" });
+            const nextIndex = currentIndex + 1;
+            set({
+              currentIndex: nextIndex,
+              currentWordId: wordList[nextIndex].id, // Mettre à jour currentWordId
+              userInput: "",
+            });
           }
         } else {
           toast({
@@ -57,7 +62,6 @@ export const useGameStore = create<GameState>()(
           set({ userInput: "" });
         }
       },
-
       goToNextWord: (category, userId) => {
         const { wordList, currentIndex, score } = get();
         if (!wordList) return;
@@ -133,12 +137,15 @@ export const useGameStore = create<GameState>()(
       },
 
       showHint: () => {
-        const { wordList, currentIndex } = get();
+        const { wordList, currentWordId } = get();
         if (!wordList) return;
 
         toast({
           title: "Indice :",
-          description: wordList[currentIndex].hint,
+          description:
+            currentWordId !== null
+              ? wordList.find((word) => word.id === currentWordId)?.hint
+              : "No hint available",
           variant: "destructive",
         });
       },

@@ -79,7 +79,7 @@ export function WordCard({
 
         {/* Remplacer le paragraphe par la barre de progression */}
         <div className="space-y-2">
-          <div className="flex justify-between text-xs text-muted-foreground">
+          <div className="flex justify-between  ">
             <span>Progression</span>
             <span>
               {currentIndex + 1} / {totalWords}

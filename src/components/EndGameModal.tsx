@@ -21,7 +21,7 @@ export function EndGameModal({
     <AlertDialog open={isOpen} onOpenChange={onClose}>
       <AlertDialogContent className="p-6 bg-bg">
         <AlertDialogTitle>Félicitations 🎉</AlertDialogTitle>
-        <AlertDialogDescription>
+        <AlertDialogDescription className="w-96">
           Vous avez terminé la liste avec un score de{" "}
           <strong>
             {score} / {totalWords}

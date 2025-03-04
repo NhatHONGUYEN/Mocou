@@ -2,6 +2,7 @@ import { ChevronRight } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { Card } from "./ui/card";
 
 export const About = () => {
   return (
@@ -46,31 +47,29 @@ export const About = () => {
                 </Button>
               </div>
             </div>
-            <Image
-              src="https://shadcnblocks.com/images/block/placeholder-dark-1.svg"
-              alt="placeholder"
-              className="order-first aspect-video h-full max-h-96 w-full rounded-lg border-b object-cover sm:order-last sm:aspect-auto lg:max-h-none lg:border-b-0 lg:border-l"
-              width={500}
-              height={500}
-            />
+            <Card>
+              <Image
+                src="/Record.gif"
+                alt="placeholder"
+                className="order-first aspect-video h-full max-h-96 w-full  object-contain sm:order-last sm:aspect-auto lg:max-h-none lg:border-b-0 "
+                width={500}
+                height={500}
+              />
+            </Card>
           </a>
           <a
             href="#"
             className="group relative rounded-lg bg-muted lg:col-span-3"
           >
-            <Button
-              size="sm"
-              className="absolute right-10 top-7 transition-all duration-200 group-hover:opacity-100 lg:translate-y-2 lg:opacity-0 lg:group-hover:translate-y-0"
-            >
-              <ChevronRight className="h-4" />
-            </Button>
-            <Image
-              src="https://shadcnblocks.com/images/block/placeholder-dark-2.svg"
-              alt="placeholder"
-              className="max-h-72 w-full rounded-lg border-b object-cover"
-              width={500}
-              height={500}
-            />
+            <Card>
+              <Image
+                src="/re-bonjour.gif"
+                alt="placeholder"
+                className="max-h-72 rounded-2xl w-full object-cover"
+                width={500}
+                height={500}
+              />
+            </Card>
             <div className="p-8 lg:p-12">
               <div className="mb-4 text-xs text-muted-foreground">
                 EASY TO USE
@@ -84,13 +83,15 @@ export const About = () => {
             href="#"
             className="grid rounded-lg bg-muted sm:grid-cols-2 lg:col-span-4"
           >
-            <Image
-              src="https://shadcnblocks.com/images/block/placeholder-dark-3.svg"
-              alt="placeholder"
-              className="aspect-video h-full max-h-96 w-full rounded-lg border-b object-cover sm:aspect-auto lg:max-h-none lg:border-b-0 lg:border-r"
-              width={500}
-              height={500}
-            />
+            <Card>
+              <Image
+                src="/parapluie.gif"
+                alt="placeholder"
+                className="aspect-video h-full max-h-96 w-full rounded-2xl  object-cover sm:aspect-auto lg:max-h-none "
+                width={500}
+                height={500}
+              />
+            </Card>
             <div className="flex flex-col justify-between p-8 lg:p-12">
               <div>
                 <div className="mb-4 text-xs text-muted-foreground">

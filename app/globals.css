@@ -47,9 +47,8 @@
 body {
   background: rgb(245, 185, 33); /* Couleur de fond */
   background-image: url("../public/sssurf.svg");
-  background-size: cover;
-  background-position: center top; /* Garde la position actuelle */
-  background-repeat: no-repeat;
+
+  background-repeat: repeat;
   height: 100vh;
   margin: 0;
 }

@@ -11,27 +11,28 @@ export default function UserHero() {
         <div className="grid grid-cols-1 items-center justify-center gap-12 lg:grid-cols-2 lg:gap-8">
           <div>
             <div className="flex flex-col gap-3">
-              <h1 className="text-4xl  text-foreground md:text-5xl lg:text-[3.5rem]">
-                Trouvez les mots cachés
+              <h1 className="text-2xl md:text-4xl leading-tight text-foreground">
+                🎉 Content de vous revoir sur Mocou !
               </h1>
               <p className="mb-5 md:text-lg text-foreground">
-                Ce jeu est conçu pour tester votre capacité à trouver des mots
-                cachés. Amusez-vous à découvrir tous les mots et améliorez vos
-                compétences linguistiques.
+                Votre aventure linguistique continue ! Pochacco 🐶 a gardé votre
+                place et est impatient de vous aider à progresser. Prêt à
+                améliorer votre score aujourd&apos;hui ? Choisissez une
+                catégorie et commencez à jouer !
               </p>
               <div>
                 <div className="flex flex-col items-center gap-4 md:flex-row">
                   <div className="shrink-0 w-full md:w-auto">
                     <Button asChild className="w-full md:w-auto">
-                      <Link href="/game">Jouer</Link>
+                      <Link href="/game">🎮 C&apos;est parti !</Link>
                     </Button>
                   </div>
                   <Button
                     asChild
-                    className="group flex h-fit items-center gap-2 w-full md:w-auto" // Ajoutez w-full pour mobile
+                    className="group flex h-fit items-center gap-2 w-full md:w-auto"
                   >
                     <Link href="/leaderboard">
-                      <p>Voir les scores</p>
+                      <p>🏆 Classement</p>
                       <ChevronRight className="h-4 w-4 shrink-0 stroke-foreground transition-transform group-hover:translate-x-2" />
                     </Link>
                   </Button>

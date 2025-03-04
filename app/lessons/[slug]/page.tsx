@@ -36,14 +36,16 @@ export default function LessonPage() {
   }
 
   const title = lessonTitles[slug] || slug;
-  const description = `Apprenez le vocabulaire des ${title.toLowerCase()} pour enrichir votre communication quotidienne.`;
+  const description = `Découvrez les mots coréens des ${title.toLowerCase()} avec Pochacco ! 🐶 Apprenez à votre rythme et impressionnez vos amis avec votre nouveau vocabulaire. Prêt à enrichir votre coréen ? Let's go ! 🇰🇷`;
 
   return (
     <FADE_DOWN_ANIMATION_VARIANTS>
       <div className="container mx-auto py-32">
         <div className="mb-16">
-          <h1 className="text-3xl font-bold mb-2">Leçon : {title}</h1>
-          <p className="text-lg text-muted-foreground ">{description}</p>
+          <h1 className="text-3xl font-bold mb-4">
+            📚 Explorons ensemble les {title} en coréen ! 🇰🇷
+          </h1>
+          <p className="text-muted-foreground ">{description}</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

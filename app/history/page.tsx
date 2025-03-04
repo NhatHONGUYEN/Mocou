@@ -27,10 +27,12 @@ export default function HistoryPage() {
   return (
     <FADE_DOWN_ANIMATION_VARIANTS>
       <section className="py-32">
-        <h1 className="text-xl mb-4">Mon historique de scores</h1>
+        <h1 className="text-2xl font-bold mb-4">
+          🌟 Vos exploits linguistiques avec Mocou 🎯
+        </h1>
         <Card>
           <CardHeader>
-            <h1>Historique</h1>
+            <h1>Historique 🏅</h1>
           </CardHeader>
           <CardContent>
             {/* TABLEAU RESPONSIVE - Affiché sur tablettes/desktop */}

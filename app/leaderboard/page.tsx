@@ -28,10 +28,14 @@ export default function LeaderboardPage() {
   return (
     <FADE_DOWN_ANIMATION_VARIANTS>
       <section className="py-32">
-        <h1 className="text-xl mb-4">Classement des scores</h1>
+        <h1 className="text-2xl font-bold mb-4">
+          Les champions de Mocou - Qui sera au sommet ? 🔝
+        </h1>
         <Card>
           <CardHeader>
-            <h1>Classement 🏆 </h1>
+            <h2 className="text-xl font-semibold">
+              Notre hall de la renommée 🏅{" "}
+            </h2>
           </CardHeader>
           <CardContent>
             {/* TABLEAU RESPONSIVE */}

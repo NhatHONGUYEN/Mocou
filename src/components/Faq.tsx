@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Link from "next/link";
 
 export default function Faq() {
   // Questions que vous vous posez peut-être...
@@ -54,13 +55,13 @@ export default function Faq() {
 
           <p className="mt-8 text-center text-sm text-muted-foreground">
             Vous avez d&apos;autres questions ?{" "}
-            <a
-              href="/contact"
+            <Link
+              href="#contact"
               className="font-medium underline underline-offset-4"
             >
-              Contactez-nous
-            </a>{" "}
-            et notre équipe vous répondra avec plaisir ! 😊
+              Contactez-moi
+            </Link>{" "}
+            et je vous répondrai personnellement avec plaisir ! 😊
           </p>
         </div>
       </div>

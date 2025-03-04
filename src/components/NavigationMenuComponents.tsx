@@ -46,7 +46,7 @@ export default function NavigationMenuComponents() {
           {/* Élément : About */}
           <NavigationMenuItem>
             <NavigationMenuTrigger className="m750:max-w-[80px] m750:text-xs">
-              About
+              A propos
             </NavigationMenuTrigger>
 
             <NavigationMenuContent>

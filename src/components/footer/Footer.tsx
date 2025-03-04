@@ -6,7 +6,7 @@ import InfiniteSliderContent from "./InfiniteSliderContent";
 
 export default function Footer() {
   return (
-    <section className="md:py-32">
+    <section className="md:py-32" id="contact">
       <div className="container mx-auto">
         <footer>
           <InfiniteSliderContent />

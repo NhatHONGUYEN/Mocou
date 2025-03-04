@@ -37,13 +37,20 @@ export const scores: { title: string; href: string; description: string }[] = [
 export const infos: { title: string; href: string; description: string }[] = [
   {
     title: "A propos",
-    href: "/about",
+    href: "#about",
     description:
       "Découvrez notre mission et apprenez-en plus sur notre plateforme d'apprentissage des langues.",
   },
   {
+    title: "Faq",
+    href: "#faq",
+    description:
+      "Des questions sur Mocou ? Consultez nos réponses aux interrogations les plus courantes.",
+  },
+
+  {
     title: "Contact",
-    href: "/contact",
+    href: "#contact",
     description:
       "Besoin d'aide ou vous avez des suggestions? N'hésitez pas à nous contacter.",
   },

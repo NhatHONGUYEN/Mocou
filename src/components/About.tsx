@@ -8,7 +8,7 @@ import FADE_DOWN_ANIMATION_VARIANTS from "../../animation/FADE_DOWN_ANIMATION_VA
 
 export const About = () => {
   return (
-    <section className="py-32">
+    <section className="py-32 " id="about">
       <div className="container">
         <FADE_DOWN_ANIMATION_VARIANTS>
           <div className="mx-auto flex max-w-screen-md flex-col items-center gap-6">

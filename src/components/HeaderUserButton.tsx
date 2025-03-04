@@ -23,7 +23,9 @@ export default function HeaderUserButton() {
           </div>
         </>
       ) : (
-        <SignOut />
+        <div className="hidden lg:flex gap-4">
+          <SignOut />
+        </div>
       )}
     </div>
   );

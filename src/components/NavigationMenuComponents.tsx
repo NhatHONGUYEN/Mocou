@@ -10,8 +10,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import { useSession } from "next-auth/react"; // Ajout de l'import useSession
 import ListItem from "./ui/listItem";
-import { lessons } from "./Header";
-import { infos, scores } from "@/lib/data";
+
+import { infos, lessons, scores } from "@/lib/data";
 
 export default function NavigationMenuComponents() {
   // Récupération de l'état de la session

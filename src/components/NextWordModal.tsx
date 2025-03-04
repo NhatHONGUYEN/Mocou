@@ -8,12 +8,12 @@ import {
 } from "./ui/alert-dialog";
 import { Button } from "./ui/button";
 
-interface NextWordModalProps {
+export type NextWordModalProps = {
   isOpen: boolean;
   onClose: () => void;
   currentWord: WordData;
   onConfirm: () => void;
-}
+};
 
 export function NextWordModal({
   isOpen,

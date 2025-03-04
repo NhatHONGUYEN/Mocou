@@ -48,3 +48,10 @@ export const infos: { title: string; href: string; description: string }[] = [
       "Besoin d'aide ou vous avez des suggestions? N'hésitez pas à nous contacter.",
   },
 ];
+
+// Titres des leçons pour l'affichage
+export const lessonTitles: Record<string, string> = {
+  animaux: "Animaux",
+  aliments: "Aliments",
+  "objets-du-quotidien": "Objets du quotidien",
+};

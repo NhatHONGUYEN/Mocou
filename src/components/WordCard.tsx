@@ -1,27 +1,11 @@
 // components/game/WordCard.tsx
 
 import { Check, ArrowRight, Lightbulb } from "lucide-react";
-import { RefObject } from "react";
-import { WordData } from "@/lib/type";
+import { WordCardProps } from "@/lib/type";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Progress } from "./ui/progress"; // Ajout de l'import
-
-interface WordCardProps {
-  category: string;
-  currentWord: WordData;
-  score: number;
-  totalWords: number;
-  currentIndex: number;
-  userInput: string;
-  onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-  inputRef: RefObject<HTMLInputElement | null>;
-  onCheck: () => void;
-  onNext: () => void;
-  onHint: () => void;
-}
 
 export function WordCard({
   category,

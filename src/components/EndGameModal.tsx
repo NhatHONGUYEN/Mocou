@@ -1,3 +1,4 @@
+import { EndGameModalProps } from "@/lib/type";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -5,17 +6,6 @@ import {
   AlertDialogTitle,
 } from "./ui/alert-dialog";
 import { Button } from "./ui/button";
-
-interface EndGameModalProps {
-  isOpen: boolean;
-  onClose: (isOpen: boolean) => void;
-  score: number;
-  totalWords: number;
-  isLoggedIn: boolean;
-  onViewScores: () => void;
-  onRestart: () => void;
-  onHome: () => void;
-}
 
 export function EndGameModal({
   isOpen,

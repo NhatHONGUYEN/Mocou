@@ -12,14 +12,8 @@ import {
   Card,
 } from "@/components/ui/card";
 import FADE_DOWN_ANIMATION_VARIANTS from "../../../animation/FADE_DOWN_ANIMATION_VARIANTS";
-
-// Type pour représenter la structure d'un mot
-interface Word {
-  id: string;
-  word: string;
-  translation: string;
-  imageUrl: string;
-}
+import { WordData } from "@/lib/type";
+import { lessonTitles } from "@/lib/data";
 
 export default function LessonPage() {
   const params = useParams();
@@ -41,13 +35,6 @@ export default function LessonPage() {
     );
   }
 
-  // Titres des leçons pour l'affichage
-  const lessonTitles: Record<string, string> = {
-    animaux: "Animaux",
-    aliments: "Aliments",
-    "objets-du-quotidien": "Objets du quotidien",
-  };
-
   const title = lessonTitles[slug] || slug;
   const description = `Apprenez le vocabulaire des ${title.toLowerCase()} pour enrichir votre communication quotidienne.`;
 
@@ -60,7 +47,7 @@ export default function LessonPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {words?.map((item: Word) => (
+          {words?.map((item: WordData) => (
             <Card
               key={item.id}
               className="relative overflow-hidden rounded-2xl group"

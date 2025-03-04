@@ -24,7 +24,7 @@ export const FooterContent = () => {
                   </span>
                   <p className="mt-6 text-center md:text-left">
                     Rejoignez Mocou dès maintenant et plongez dans
-                    l'apprentissage du coréen ! 🇰🇷 Avec notre compagnon
+                    l&apos;apprentissage du coréen ! 🇰🇷 Avec notre compagnon
                     Pochacco, mémorisez du vocabulaire tout en vous amusant. Une
                     aventure linguistique ludique vous attend - prêt à relever
                     le défi ?

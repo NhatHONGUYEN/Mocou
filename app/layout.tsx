@@ -6,6 +6,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import { Providers } from "@/components/Providers";
 import FADE_DOWN_ANIMATION_VARIANTS from "../animation/FADE_DOWN_ANIMATION_VARIANTS";
+import Footer from "@/components/footer/Footer";
 
 const archivoBlack = Archivo_Black({
   variable: "--font-archivo-black",
@@ -39,6 +40,7 @@ export default function RootLayout({
             <FADE_DOWN_ANIMATION_VARIANTS>
               <Header />
               {children}
+              <Footer />
             </FADE_DOWN_ANIMATION_VARIANTS>
           </div>
         </Providers>

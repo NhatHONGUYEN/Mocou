@@ -1,19 +1,22 @@
 import { InfiniteSlider } from "../ui/infinite-slider";
+import Image from "next/image";
 
 export default function InfiniteSliderContent() {
   return (
     <InfiniteSlider gap={40} reverse>
       {Array(5)
-        .fill(SLIDER.INFINITE_SLIDER_TEXT)
-        .map((text, idx) => (
-          <p key={idx} className="text-7xl font-extrabold">
-            {text}
-          </p>
+        .fill("/category.gif") // Remplacez par le chemin de votre image
+        .map((imgSrc, idx) => (
+          <div key={idx} className=" flex items-center justify-center">
+            <Image
+              src={imgSrc}
+              alt="Mocou mascot"
+              width={200}
+              height={80}
+              className="object-cover"
+            />
+          </div>
         ))}
     </InfiniteSlider>
   );
 }
-
-export const SLIDER = {
-  INFINITE_SLIDER_TEXT: "nhat.dev",
-};

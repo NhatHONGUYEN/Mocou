@@ -21,14 +21,14 @@ export function EndGameModal({
     <AlertDialog open={isOpen} onOpenChange={onClose}>
       <AlertDialogContent className="p-6 bg-bg">
         <AlertDialogTitle>Félicitations 🎉</AlertDialogTitle>
-        <AlertDialogDescription className="w-96">
+        <AlertDialogDescription className=" xs:w-80">
           Vous avez terminé la liste avec un score de{" "}
           <strong>
             {score} / {totalWords}
           </strong>{" "}
           !
         </AlertDialogDescription>
-        <div className="flex justify-end gap-4 mt-4">
+        <div className="flex flex-col  xs:justify-end gap-4 mt-4">
           {/* Si l'utilisateur n'est pas connecté */}
           {!isLoggedIn && (
             <Button onClick={onHome}>Retour à l&apos;accueil</Button>

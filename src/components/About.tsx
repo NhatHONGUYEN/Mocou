@@ -64,10 +64,14 @@ export const About = () => {
                 </div>
               </div>
               <Card>
-                <Image
-                  src="/Record.gif"
-                  alt="placeholder"
-                  className="order-first aspect-video h-full max-h-96 w-full   object-cover rounded-2xl sm:order-last sm:aspect-auto lg:max-h-none "
+                <video
+                  src="/Record.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  controls={false}
+                  playsInline
+                  className="order-first aspect-video h-full max-h-96 w-full rounded-2xl object-cover sm:order-last sm:aspect-auto lg:max-h-none"
                   width={500}
                   height={500}
                 />

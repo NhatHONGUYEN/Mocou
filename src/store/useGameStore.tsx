@@ -78,23 +78,25 @@ export const useGameStore = create<GameState>()(
         const { wordList, currentWordId } = get();
         if (!wordList || !currentWordId) return;
 
-        // Trouver la position actuelle par ID
-        const currentPos = wordList.findIndex(
-          (word) => word.id === currentWordId
-        );
-        if (currentPos === -1) return;
+        // Fermer la modal immédiatement
+        set({ showNextWordModal: false });
 
-        // Calculer le prochain index
-        const nextPos = (currentPos + 1) % wordList.length;
-        const nextWordId = wordList[nextPos].id;
+        // Utiliser un délai pour permettre à la modal de se fermer avant de passer au mot suivant
+        setTimeout(() => {
+          const currentPos = wordList.findIndex(
+            (word) => word.id === currentWordId
+          );
+          if (currentPos === -1) return;
 
-        // Mettre à jour en une seule opération
-        set({
-          currentIndex: nextPos, // Pour compatibilité
-          currentWordId: nextWordId,
-          userInput: "",
-          showNextWordModal: false,
-        });
+          const nextPos = (currentPos + 1) % wordList.length;
+          const nextWordId = wordList[nextPos].id;
+
+          set({
+            currentIndex: nextPos,
+            currentWordId: nextWordId,
+            userInput: "",
+          });
+        }, 300); // Ajustez le délai en fonction de la durée de l'animation de fermeture de la modal
       },
 
       restartGame: () => {
@@ -160,9 +162,9 @@ export const useGameStore = create<GameState>()(
         wordList: state.wordList,
         isFinished: state.isFinished,
         currentCategory: state.currentCategory,
-        currentWordId: state.currentWordId, // Modification du gameState pour stocker l'ID courant
+        currentWordId: state.currentWordId,
       }),
-    } as PersistOptions // Utilisez le type PersistOptions
+    } as PersistOptions
   )
 );
 

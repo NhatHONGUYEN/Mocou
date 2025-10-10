@@ -1,0 +1,232 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Mocou API",
+    "description": "Documentation générée automatiquement depuis les routes sous app/api via swagger-autogen.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Développement"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authentification et utilisateurs"
+    },
+    {
+      "name": "Categories",
+      "description": "Catégories de mots"
+    },
+    {
+      "name": "Words",
+      "description": "Gestion des mots"
+    },
+    {
+      "name": "Scores",
+      "description": "Scores et leaderboard"
+    }
+  ],
+  "paths": {
+    "/api/categories": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Lister les catégories",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/word": {
+      "get": {
+        "tags": [
+          "Words"
+        ],
+        "summary": "Lister les mots par catégorie",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "category",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Mauvaise requête"
+          },
+          "404": {
+            "description": "Non trouvé"
+          }
+        }
+      }
+    },
+    "/api/scores": {
+      "get": {
+        "tags": [
+          "Scores"
+        ],
+        "summary": "Lister les scores",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Scores"
+        ],
+        "summary": "Créer un score",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string"
+                  },
+                  "score": {
+                    "type": "number"
+                  },
+                  "category": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "userId",
+                  "score",
+                  "category"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Créé"
+          },
+          "400": {
+            "description": "Mauvaise requête"
+          }
+        }
+      }
+    },
+    "/api/auth/check-user": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Vérifier l'existence d'un utilisateur",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  }
+                },
+                "required": [
+                  "email"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/signUp": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Inscription d'un utilisateur",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "password"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Créé"
+          },
+          "400": {
+            "description": "Conflit / invalide"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

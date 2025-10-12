@@ -13,7 +13,7 @@ export async function GET() {
         "Cache-Control": "no-store",
       },
     });
-  } catch (e) {
+  } catch {
     return NextResponse.json(
       { error: "OpenAPI introuvable. Lancez `npm run docs:gen`." },
       { status: 404 }
